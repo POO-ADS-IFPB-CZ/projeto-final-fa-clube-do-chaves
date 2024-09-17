@@ -4,13 +4,11 @@ public class Proprietario {
     private String nome;
     private String email;
     private String senha;
-    private String telefone;
 
-    public Proprietario(String nome, String email, String senha, String telefone) {
+    public Proprietario(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.telefone = telefone;
     }
 
     public String getNome() {
@@ -35,13 +33,5 @@ public class Proprietario {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
     }
 }
