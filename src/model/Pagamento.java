@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Pagamento  implements Serializable {
     private int codigo;
@@ -56,5 +57,32 @@ public class Pagamento  implements Serializable {
 
     public void setContratoAluguel(ContratoAluguel contratoAluguel) {
         this.contratoAluguel = contratoAluguel;
+    }
+
+    @Override
+    public String toString() {
+        return "Pagamento{" +
+                "codigo=" + codigo +
+                ", valor=" + valor +
+                ", dataPagamento='" + dataPagamento + '\'' +
+                ", formaPagamento='" + formaPagamento + '\'' +
+                ", contratoAluguel=" + contratoAluguel +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pagamento pagamento = (Pagamento) o;
+        return codigo == pagamento.codigo && Float.compare(valor, pagamento.valor) == 0
+                && Objects.equals(dataPagamento, pagamento.dataPagamento)
+                && Objects.equals(formaPagamento, pagamento.formaPagamento) &&
+                Objects.equals(contratoAluguel, pagamento.contratoAluguel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo, valor, dataPagamento, formaPagamento, contratoAluguel);
     }
 }

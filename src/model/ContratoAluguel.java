@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class ContratoAluguel implements Serializable {
     private  int codigo;
@@ -87,5 +88,36 @@ public class ContratoAluguel implements Serializable {
 
     public void setProprietario(Proprietario proprietario) {
         this.proprietario = proprietario;
+    }
+
+    @Override
+    public String toString() {
+        return "ContratoAluguel{" +
+                "codigo=" + codigo +
+                ", dataInicio='" + dataInicio + '\'' +
+                ", dataTermino='" + dataTermino + '\'' +
+                ", valorAluguel=" + valorAluguel +
+                ", diaPagamento='" + diaPagamento + '\'' +
+                ", inquilino=" + inquilino +
+                ", imovel=" + imovel +
+                ", proprietario=" + proprietario +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContratoAluguel that = (ContratoAluguel) o;
+        return codigo == that.codigo && Float.compare(valorAluguel, that.valorAluguel) == 0 &&
+                Objects.equals(dataInicio, that.dataInicio) && Objects.equals(dataTermino, that.dataTermino)
+                && Objects.equals(diaPagamento, that.diaPagamento) && Objects.equals(inquilino, that.inquilino)
+                && Objects.equals(imovel, that.imovel) && Objects.equals(proprietario, that.proprietario);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo, dataInicio, dataTermino, valorAluguel, diaPagamento,
+                inquilino, imovel, proprietario);
     }
 }
