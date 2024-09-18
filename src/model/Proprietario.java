@@ -1,14 +1,26 @@
 package model;
 
-public class Proprietario {
+import java.io.Serializable;
+
+public class Proprietario  implements Serializable{
+    private int codigo;
     private String nome;
     private String email;
     private String senha;
 
-    public Proprietario(String nome, String email, String senha) {
+    public Proprietario(int codigo, String nome, String email, String senha) {
+        this.codigo = codigo;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public String getNome() {

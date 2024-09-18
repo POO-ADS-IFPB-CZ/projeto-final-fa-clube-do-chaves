@@ -1,6 +1,9 @@
 package model;
 
-public class Imovel{
+import java.io.Serializable;
+
+public class Imovel implements Serializable {
+    private int codigo;
     private byte[] fotos;
     private String tipo;
     private double areaTotal;
@@ -17,10 +20,11 @@ public class Imovel{
     private String cidade;
     private String estado;
 
-    public Imovel(byte[] fotos, String tipo, double areaTotal, int quantidadeQuartos,
+    public Imovel(int codigo, byte[] fotos, String tipo, double areaTotal, int quantidadeQuartos,
                   String status, int quantidadeBanheiros, String descricao, float valorAluguel,
                   Proprietario proprietario, String rua, int numero, String bairro,
                   String cidade, String estado) {
+        this.codigo = codigo;
         this.fotos = fotos;
         this.tipo = tipo;
         this.areaTotal = areaTotal;
@@ -35,6 +39,14 @@ public class Imovel{
         this.bairro = bairro;
         this.cidade = cidade;
         this.estado = estado;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public byte[] getFotos() {

@@ -1,16 +1,28 @@
 package model;
 
-public class Inquilino {
+import java.io.Serializable;
+
+public class Inquilino  implements Serializable{
+    private int codigo;
     private  String nome;
     private  String cpf;
     private  String telefone1;
     private  String telefone2;
 
-    public Inquilino(String nome, String cpf, String telefone1, String telefone2) {
+    public Inquilino(int codigo, String nome, String cpf, String telefone1, String telefone2) {
+        this.codigo = codigo;
         this.nome = nome;
         this.cpf = cpf;
         this.telefone1 = telefone1;
         this.telefone2 = telefone2;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public String getNome() {

@@ -1,19 +1,32 @@
 package model;
 
 
-public class Manutencao {
+import java.io.Serializable;
+
+public class Manutencao implements Serializable {
+    private int codigo;
     private  String tipo;
     private String dataInicio;
     private String dataTermino;
     private double custo;
     private  Imovel imovel;
 
-    public Manutencao(String tipo, String dataInicio, String dataTermino, double custo, Imovel imovel) {
+    public Manutencao(int codigo, String tipo, String dataInicio, String dataTermino,
+                      double custo, Imovel imovel) {
+        this.codigo = codigo;
         this.tipo = tipo;
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
         this.custo = custo;
         this.imovel = imovel;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public String getTipo() {

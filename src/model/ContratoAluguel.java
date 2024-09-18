@@ -1,21 +1,36 @@
 package model;
 
-public class ContratoAluguel {
+import java.io.Serializable;
+
+public class ContratoAluguel implements Serializable {
+    private  int codigo;
     private  String dataInicio;
     private String dataTermino;
     private float valorAluguel;
     private String diaPagamento;
     private  Inquilino inquilino;
     private  Imovel imovel;
+    private  Proprietario proprietario;
 
-    public ContratoAluguel(String dataInicio, String dataTermino, float valorAluguel,
-                           String diaPagamento, Inquilino inquilino, Imovel imovel) {
+    public ContratoAluguel(int codigo, String dataInicio, String dataTermino,
+                           float valorAluguel, String diaPagamento, Inquilino inquilino,
+                           Imovel imovel, Proprietario proprietario) {
+        this.codigo = codigo;
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
         this.valorAluguel = valorAluguel;
         this.diaPagamento = diaPagamento;
         this.inquilino = inquilino;
         this.imovel = imovel;
+        this.proprietario = proprietario;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public String getDataInicio() {
@@ -64,5 +79,13 @@ public class ContratoAluguel {
 
     public void setImovel(Imovel imovel) {
         this.imovel = imovel;
+    }
+
+    public Proprietario getProprietario() {
+        return proprietario;
+    }
+
+    public void setProprietario(Proprietario proprietario) {
+        this.proprietario = proprietario;
     }
 }
