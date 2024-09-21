@@ -42,13 +42,12 @@ public class Imovel implements Serializable {
         this.cidade = cidade;
         this.estado = estado;
     }
+    public Imovel(){
+
+    }
 
     public int getCodigo() {
         return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
     }
 
     public byte[] getFotos() {

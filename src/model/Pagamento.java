@@ -18,13 +18,12 @@ public class Pagamento  implements Serializable {
         this.formaPagamento = formaPagamento;
         this.contratoAluguel = contratoAluguel;
     }
+    public  Pagamento(){
+
+    }
 
     public int getCodigo() {
         return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
     }
 
     public float getValor() {

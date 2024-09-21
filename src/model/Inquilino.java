@@ -17,15 +17,12 @@ public class Inquilino  implements Serializable{
         this.telefone1 = telefone1;
         this.telefone2 = telefone2;
     }
+    public Inquilino(){
 
+    }
     public int getCodigo() {
         return codigo;
     }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
     public String getNome() {
         return nome;
     }

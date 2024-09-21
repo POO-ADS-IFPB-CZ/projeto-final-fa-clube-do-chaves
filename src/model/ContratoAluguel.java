@@ -25,13 +25,10 @@ public class ContratoAluguel implements Serializable {
         this.imovel = imovel;
         this.proprietario = proprietario;
     }
+    public ContratoAluguel(){}
 
     public int getCodigo() {
         return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
     }
 
     public String getDataInicio() {

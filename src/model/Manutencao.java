@@ -21,13 +21,12 @@ public class Manutencao implements Serializable {
         this.custo = custo;
         this.imovel = imovel;
     }
+    public Manutencao(){
+
+    }
 
     public int getCodigo() {
         return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
     }
 
     public String getTipo() {

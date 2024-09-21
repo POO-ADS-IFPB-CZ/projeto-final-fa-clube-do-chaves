@@ -15,13 +15,12 @@ public class Proprietario  implements Serializable{
         this.email = email;
         this.senha = senha;
     }
+    public  Proprietario(){
+
+    }
 
     public int getCodigo() {
         return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
     }
 
     public String getNome() {
