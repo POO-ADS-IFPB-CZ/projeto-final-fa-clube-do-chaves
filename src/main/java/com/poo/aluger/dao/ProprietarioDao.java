@@ -80,9 +80,4 @@ public class ProprietarioDao implements GenericDao<Proprietario> {
         }
     }
 
-    @Override
-    public List<Proprietario> findAll() throws SQLException, IOException, ClassNotFoundException {
-        throw new RuntimeException("O método findAll() não é implementado para a entidade Proprietario");
-    }
-
 }

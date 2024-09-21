@@ -83,7 +83,6 @@ public class InquilinoDao implements GenericDao<Inquilino> {
         }
     }
 
-    @Override
     public List<Inquilino> findAll() throws SQLException, IOException, ClassNotFoundException {
         try(Connection connection = DBConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(
