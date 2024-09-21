@@ -81,15 +81,15 @@ public class ImovelDao implements GenericDao<Imovel> {
         }
     }
 
-    @Override
-    public Imovel findById(int id) throws SQLException, IOException, ClassNotFoundException {
+    public Imovel findById(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
         try(Connection connection = DBConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT * " +
                         "FROM Imovel " +
-                        "WHERE Codigo = ?"
+                        "WHERE Codigo = ? AND CodigoProprietario = ?"
             );
             stmt.setInt(1, id);
+            stmt.setInt(2, codigoProprietario);
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) {
@@ -106,12 +106,11 @@ public class ImovelDao implements GenericDao<Imovel> {
                 String status = rs.getString("Status");
                 int qtdBanheiros = rs.getInt("QtdBanheiros");
                 String descricao = rs.getString("Descricao");
-                int codigoProprietario = rs.getInt("CodigoProprietario");
 
-                ProprietarioDao proprietarioDao = new ProprietarioDao();
+                Proprietario proprietario = new ProprietarioDao().findById(codigoProprietario);
 
                 return new Imovel(codigo, foto, rua, numero, bairro, cidade, estado, tipo, areaTotal, qtdQuartos,
-                        status, qtdBanheiros, descricao, proprietarioDao.findById(codigoProprietario));
+                        status, qtdBanheiros, descricao, proprietario);
             }
             return null;
         }

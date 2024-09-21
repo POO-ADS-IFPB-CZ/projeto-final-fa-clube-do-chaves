@@ -57,7 +57,6 @@ public class ProprietarioDao implements GenericDao<Proprietario> {
         }
     }
 
-    @Override
     public Proprietario findById(int id) throws SQLException, IOException, ClassNotFoundException {
         try(Connection connection = DBConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(

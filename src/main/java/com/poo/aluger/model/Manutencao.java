@@ -1,18 +1,18 @@
 package com.poo.aluger.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Manutencao implements Serializable {
     private int codigo;
     private  String tipo;
-    private String dataInicio;
-    private String dataTermino;
+    private LocalDate dataInicio;
+    private LocalDate dataTermino;
     private double custo;
     private  Imovel imovel;
 
-    public Manutencao(int codigo, String tipo, String dataInicio, String dataTermino,
-                      double custo, Imovel imovel) {
+    public Manutencao(int codigo, String tipo, LocalDate dataInicio, LocalDate dataTermino, double custo, Imovel imovel) {
         this.codigo = codigo;
         this.tipo = tipo;
         this.dataInicio = dataInicio;
@@ -21,11 +21,11 @@ public class Manutencao implements Serializable {
         this.imovel = imovel;
     }
 
-    public Manutencao(double custo, String tipo, String dataInicio, String dataTermino, Imovel imovel) {
-        this.custo = custo;
+    public Manutencao(String tipo, LocalDate dataInicio, LocalDate dataTermino, double custo, Imovel imovel) {
         this.tipo = tipo;
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
+        this.custo = custo;
         this.imovel = imovel;
     }
 
@@ -41,19 +41,19 @@ public class Manutencao implements Serializable {
         this.tipo = tipo;
     }
 
-    public String getDataInicio() {
+    public LocalDate getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(String dataInicio) {
+    public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public String getDataTermino() {
+    public LocalDate getDataTermino() {
         return dataTermino;
     }
 
-    public void setDataTermino(String dataTermino) {
+    public void setDataTermino(LocalDate dataTermino) {
         this.dataTermino = dataTermino;
     }
 
@@ -74,29 +74,27 @@ public class Manutencao implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Manutencao{" +
-                "codigo=" + codigo +
-                ", tipo='" + tipo + '\'' +
-                ", dataInicio='" + dataInicio + '\'' +
-                ", dataTermino='" + dataTermino + '\'' +
-                ", custo=" + custo +
-                ", imovel=" + imovel +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Manutencao that = (Manutencao) o;
-        return codigo == that.codigo && Double.compare(custo, that.custo) == 0 &&
-                Objects.equals(tipo, that.tipo) && Objects.equals(dataInicio, that.dataInicio) &&
-                Objects.equals(dataTermino, that.dataTermino) && Objects.equals(imovel, that.imovel);
+        return codigo == that.codigo;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo, tipo, dataInicio, dataTermino, custo, imovel);
+        return Objects.hashCode(codigo);
+    }
+
+    @Override
+    public String toString() {
+        return "Manutencao{" +
+                "codigo=" + codigo +
+                ", tipo='" + tipo + '\'' +
+                ", dataInicio=" + dataInicio +
+                ", dataTermino=" + dataTermino +
+                ", custo=" + custo +
+                ", imovel=" + imovel +
+                '}';
     }
 }
