@@ -129,8 +129,8 @@ public class ImovelDao implements GenericDao<Imovel> {
 
             ProprietarioDao proprietarioDao = new ProprietarioDao();
             Proprietario proprietario = proprietarioDao.findById(codigoProprietario);
-            List<Imovel> imoveis = new ArrayList<>();
 
+            List<Imovel> imoveis = new ArrayList<>();
             while(rs.next()) {
                 int codigo = rs.getInt("Codigo");
                 byte[] foto = rs.getBytes("Foto");
