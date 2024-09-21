@@ -2,6 +2,7 @@ package com.poo.aluger.dao;
 
 import com.poo.aluger.db.DBConnector;
 import com.poo.aluger.model.Imovel;
+import com.poo.aluger.model.Proprietario;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -119,12 +120,16 @@ public class ImovelDao implements GenericDao<Imovel> {
     public List<Imovel> findAllByProprietario(int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
         try(Connection connection = DBConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT * FROM Imovel WHERE CodigoProprietario = ?"
+                    "SELECT * " +
+                        "FROM Imovel " +
+                        "WHERE CodigoProprietario = ? " +
+                        "ORDER BY Codigo"
             );
             stmt.setInt(1, codigoProprietario);
             ResultSet rs = stmt.executeQuery();
 
             ProprietarioDao proprietarioDao = new ProprietarioDao();
+            Proprietario proprietario = proprietarioDao.findById(codigoProprietario);
             List<Imovel> imoveis = new ArrayList<>();
 
             while(rs.next()) {
@@ -156,7 +161,7 @@ public class ImovelDao implements GenericDao<Imovel> {
                         status,
                         qtdBanheiros,
                         descricao,
-                        proprietarioDao.findById(codigoProprietario)
+                        proprietario
                 );
 
                 imoveis.add(imovel);

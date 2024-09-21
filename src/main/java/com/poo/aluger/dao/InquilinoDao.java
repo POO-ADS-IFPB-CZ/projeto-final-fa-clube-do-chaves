@@ -87,7 +87,8 @@ public class InquilinoDao implements GenericDao<Inquilino> {
         try(Connection connection = DBConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT * " +
-                        "FROM Inquilino"
+                        "FROM Inquilino " +
+                        "ORDER BY Codigo"
             );
             ResultSet rs = stmt.executeQuery();
 
