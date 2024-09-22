@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.poo.aluger.model.Imovel;
+import com.poo.aluger.model.Inquilino;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,4 +68,20 @@ public class DashboardController {
     stage.show();
   }
 
+  @FXML
+  public void inquilinos(ActionEvent event) throws IOException {
+    FXMLLoader fxmlLoader = new FXMLLoader(DashboardController.class.getResource("inquilinos.fxml"));
+    Parent root = fxmlLoader.load();
+
+    InquilinosPageController controller = fxmlLoader.getController();
+    controller.addInquilino(new Inquilino(1, "João", "123.123.123-12", "1234-1234", "1234-1234"));
+    controller.addInquilino(new Inquilino(2, "Maria", "123.123.123-12", "1234-1234", "1234-1234"));
+    controller.addInquilino(new Inquilino(3, "José", "123.123.123-12", "1234-1234", "1234-1234"));
+
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    Scene scene = new Scene(root);
+    stage.setTitle("Inquilinos");
+    stage.setScene(scene);
+    stage.show();
+  }
 }

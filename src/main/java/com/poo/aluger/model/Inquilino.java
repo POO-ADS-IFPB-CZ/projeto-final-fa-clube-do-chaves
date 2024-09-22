@@ -5,10 +5,10 @@ import java.util.Objects;
 
 public class Inquilino  implements Serializable{
     private int codigo;
-    private  String nome;
-    private  String cpf;
-    private  String telefone1;
-    private  String telefone2;
+    private String nome;
+    private String cpf;
+    private String telefone1;
+    private String telefone2;
 
     public Inquilino(int codigo, String nome, String cpf, String telefone1, String telefone2) {
         this.codigo = codigo;

@@ -122,7 +122,7 @@
                                     <Font size="19.0" />
                                  </font>
                               </Text>
-                              <Button layoutX="228.0" layoutY="8.0" mnemonicParsing="false" onAction="#hello" prefHeight="29.0" prefWidth="24.0" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-background-color: transparent;" textFill="WHITE" textOverrun="CLIP">
+                              <Button layoutX="228.0" layoutY="8.0" mnemonicParsing="false" onAction="#inquilinos" prefHeight="29.0" prefWidth="24.0" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-background-color: transparent;" textFill="WHITE" textOverrun="CLIP">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
