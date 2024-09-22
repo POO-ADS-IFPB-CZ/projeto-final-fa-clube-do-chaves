@@ -1,19 +1,18 @@
 package com.poo.aluger.model;
 
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Objects;
 
 public class Imovel implements Serializable {
     private int codigo;
-    private byte[] fotos;
+    private BufferedImage foto;
     private String tipo;
     private double areaTotal;
     private int quantidadeQuartos;
     private String status;
     private int quantidadeBanheiros;
     private String descricao;
-    private float valorAluguel;
+    private double valorAluguel;
     private Proprietario proprietario;
     // Endereço
     private String rua;
@@ -22,12 +21,12 @@ public class Imovel implements Serializable {
     private String cidade;
     private String estado;
 
-    public Imovel(int codigo, byte[] fotos, String tipo, double areaTotal, int quantidadeQuartos,
-                  String status, int quantidadeBanheiros, String descricao, float valorAluguel,
+    public Imovel(int codigo, BufferedImage foto , String tipo, double areaTotal, int quantidadeQuartos,
+                  String status, int quantidadeBanheiros, String descricao, double valorAluguel,
                   Proprietario proprietario, String rua, int numero, String bairro,
                   String cidade, String estado) {
         this.codigo = codigo;
-        this.fotos = fotos;
+        this.foto = foto;
         this.tipo = tipo;
         this.areaTotal = areaTotal;
         this.quantidadeQuartos = quantidadeQuartos;
@@ -43,10 +42,10 @@ public class Imovel implements Serializable {
         this.estado = estado;
     }
 
-    public Imovel(byte[] fotos, String tipo, double areaTotal, int quantidadeQuartos, String status,
+    public Imovel(BufferedImage foto, String tipo, double areaTotal, int quantidadeQuartos, String status,
                   int quantidadeBanheiros, String descricao, float valorAluguel, Proprietario proprietario,
                   String rua, int numero, String bairro, String cidade, String estado) {
-        this.fotos = fotos;
+        this.foto = foto;
         this.tipo = tipo;
         this.areaTotal = areaTotal;
         this.quantidadeQuartos = quantidadeQuartos;
@@ -66,12 +65,12 @@ public class Imovel implements Serializable {
         return codigo;
     }
 
-    public byte[] getFotos() {
-        return fotos;
+    public BufferedImage getFoto() {
+        return foto;
     }
 
-    public void setFotos(byte[] fotos) {
-        this.fotos = fotos;
+    public void setFoto(BufferedImage foto) {
+        this.foto = foto;
     }
 
     public String getTipo() {
@@ -122,7 +121,7 @@ public class Imovel implements Serializable {
         this.descricao = descricao;
     }
 
-    public float getValorAluguel() {
+    public double getValorAluguel() {
         return valorAluguel;
     }
 
@@ -182,7 +181,6 @@ public class Imovel implements Serializable {
     public String toString() {
         return "Imovel{" +
                 "codigo=" + codigo +
-                ", fotos=" + Arrays.toString(fotos) +
                 ", tipo='" + tipo + '\'' +
                 ", areaTotal=" + areaTotal +
                 ", quantidadeQuartos=" + quantidadeQuartos +
@@ -197,29 +195,5 @@ public class Imovel implements Serializable {
                 ", cidade='" + cidade + '\'' +
                 ", estado='" + estado + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Imovel imovel = (Imovel) o;
-        return codigo == imovel.codigo && Double.compare(areaTotal, imovel.areaTotal) == 0 &&
-                quantidadeQuartos == imovel.quantidadeQuartos && quantidadeBanheiros ==
-                imovel.quantidadeBanheiros && Float.compare(valorAluguel, imovel.valorAluguel) == 0
-                && numero == imovel.numero && Arrays.equals(fotos, imovel.fotos) &&
-                Objects.equals(tipo, imovel.tipo) && Objects.equals(status, imovel.status) &&
-                Objects.equals(descricao, imovel.descricao) && Objects.equals(proprietario, imovel.proprietario)
-                && Objects.equals(rua, imovel.rua) && Objects.equals(bairro, imovel.bairro) &&
-                Objects.equals(cidade, imovel.cidade) && Objects.equals(estado, imovel.estado);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(codigo, tipo, areaTotal, quantidadeQuartos, status,
-                quantidadeBanheiros, descricao, valorAluguel, proprietario, rua, numero,
-                bairro, cidade, estado);
-        result = 31 * result + Arrays.hashCode(fotos);
-        return result;
     }
 }
