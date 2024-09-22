@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" fillWidth="false" prefHeight="700.0" prefWidth="1000.0" spacing="20.0" style="-fx-background-color: #019ade;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.telalogin.HelloController">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+  </padding>
+   <children>
+      <VBox prefHeight="374.0" prefWidth="275.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0;">
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <children>
+            <StackPane>
+               <VBox.margin>
+                  <Insets top="100.0" />
+               </VBox.margin>
+               <children>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Entre">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+            <Label text="Email">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </Label>
+            <TextField id="email" prefHeight="40.0" prefWidth="235.0" promptText="Email">
+               <VBox.margin>
+                  <Insets right="20.0" top="8.0" />
+               </VBox.margin></TextField>
+            <Label prefHeight="16.0" prefWidth="48.0" text="Senha">
+               <VBox.margin>
+                  <Insets bottom="2.0" top="12.0" />
+               </VBox.margin>
+            </Label>
+            <PasswordField id="senha" prefHeight="40.0" prefWidth="235.0" promptText="Senha">
+               <VBox.margin>
+                  <Insets right="20.0" top="8.0" />
+               </VBox.margin>
+            </PasswordField>
+            <Button id="buttonEntra" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #009bde;" text="Entra" textFill="#fcf9f9">
+               <VBox.margin>
+                  <Insets left="3.0" top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button id="buttonCadastra" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onHelloButtonClick" prefHeight="40.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #9cc7d8;" text="Cadastre-se " textFill="#1137e1">
+               <VBox.margin>
+                  <Insets left="110.0" top="-40.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor></VBox>
+   </children>
+</VBox>
