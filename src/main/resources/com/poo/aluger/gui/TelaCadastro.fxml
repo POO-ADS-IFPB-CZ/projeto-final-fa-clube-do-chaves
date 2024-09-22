@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" fillWidth="false" prefHeight="700.0" prefWidth="1000.0" spacing="20.0" style="-fx-background-color: #019ade;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.telacadastro.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <VBox prefHeight="422.0" prefWidth="356.0" style="-fx-background-color: #FFFFFF;">
+        <children>
+            <StackPane>
+                <VBox.margin>
+                    <Insets top="20.0" />
+                </VBox.margin>
+                <children>
+                    <Label text="Crie sua contra" textFill="#272ac5">
+                        <font>
+                            <Font size="22.0" />
+                        </font>
+                    </Label>
+                </children>
+            </StackPane>
+            <StackPane>
+                <children>
+                    <Label alignment="CENTER" style="-fx-alignment: center;" text="Cadastre seus dados" textFill="#828282">
+                        <StackPane.margin>
+                            <Insets top="17.0" />
+                        </StackPane.margin>
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                </children>
+            </StackPane>
+            <Label text="Nome">
+                <VBox.margin>
+                    <Insets left="40.0" top="20.0" />
+                </VBox.margin>
+            </Label>
+            <TextField id="nome" prefHeight="40.0" prefWidth="364.0" promptText="Nome">
+                <VBox.margin>
+                    <Insets left="40.0" right="40.0" top="10.0" />
+                </VBox.margin>
+            </TextField>
+            <Label text="Email">
+                <VBox.margin>
+                    <Insets left="40.0" top="10.0" />
+                </VBox.margin>
+            </Label>
+            <TextField id="email" prefHeight="40.0" promptText="Email">
+                <VBox.margin>
+                    <Insets left="40.0" right="40.0" top="10.0" />
+                </VBox.margin>
+            </TextField>
+            <Label text="Senha">
+                <VBox.margin>
+                    <Insets left="40.0" top="10.0" />
+                </VBox.margin>
+            </Label>
+            <PasswordField id="senha" prefHeight="40.0" promptText="Senha">
+                <VBox.margin>
+                    <Insets left="40.0" right="40.0" top="10.0" />
+                </VBox.margin>
+            </PasswordField>
+            <StackPane>
+                <children>
+                    <Button id="buttonCadastrar" mnemonicParsing="false" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #6495ED; -fx-background-radius: 5;" text="Cadastrar" textFill="WHITE">
+                        <StackPane.margin>
+                            <Insets top="20.0" />
+                        </StackPane.margin>
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </Button>
+                </children>
+            </StackPane>
+        </children>
+        <VBox.margin>
+            <Insets />
+        </VBox.margin>
+    </VBox>
+</VBox>
