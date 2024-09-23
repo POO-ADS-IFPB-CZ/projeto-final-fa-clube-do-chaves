@@ -162,7 +162,7 @@
                      <bottom>
                         <AnchorPane prefHeight="42.0" prefWidth="310.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button layoutX="236.0" layoutY="7.0" mnemonicParsing="false" onAction="#hello" prefHeight="29.0" prefWidth="24.0" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-background-color: transparent;" textFill="WHITE" textOverrun="CLIP">
+                              <Button layoutX="236.0" layoutY="7.0" mnemonicParsing="false" onAction="#pagamentos" prefHeight="29.0" prefWidth="24.0" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-background-color: transparent;" textFill="WHITE" textOverrun="CLIP">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -212,7 +212,7 @@
                                     <Font size="19.0" />
                                  </font>
                               </Text>
-                              <Button layoutX="228.0" layoutY="6.0" mnemonicParsing="false" onAction="#hello" prefHeight="29.0" prefWidth="24.0" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-background-color: transparent;" textFill="WHITE" textOverrun="CLIP">
+                              <Button layoutX="228.0" layoutY="6.0" mnemonicParsing="false" onAction="#manutencoes" prefHeight="29.0" prefWidth="24.0" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-background-color: transparent;" textFill="WHITE" textOverrun="CLIP">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

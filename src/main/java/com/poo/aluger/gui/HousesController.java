@@ -73,6 +73,7 @@ public class HousesController {
 
   @FXML
   public void goback(ActionEvent event) throws IOException {
+    System.out.println("goback");
     Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("dashboard.fxml")));
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     Scene scene = new Scene(root);

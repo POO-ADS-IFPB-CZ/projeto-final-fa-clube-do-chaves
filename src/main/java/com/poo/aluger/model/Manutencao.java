@@ -61,7 +61,7 @@ public class Manutencao implements Serializable {
         return custo;
     }
 
-    public void setCusto(double custo) {
+    public void setValor(double custo) {
         this.custo = custo;
     }
 
