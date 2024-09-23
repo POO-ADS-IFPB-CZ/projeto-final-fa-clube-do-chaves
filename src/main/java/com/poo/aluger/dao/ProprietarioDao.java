@@ -10,13 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ProprietarioDao implements GenericDao<Proprietario> {
+public class ProprietarioDao {
 
-    @Override
     public boolean insert(Proprietario proprietario) throws SQLException, IOException, ClassNotFoundException {
         try(Connection connection = DBConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO Proprietario(Nome, Email, Senha) " +
+                    "INSERT INTO Proprietario(P_Nome, P_Email, P_Senha) " +
                         "VALUES (?, ?, ?)"
             );
             stmt.setString(1, proprietario.getNome());
@@ -27,12 +26,11 @@ public class ProprietarioDao implements GenericDao<Proprietario> {
         }
     }
 
-    @Override
     public boolean delete(int id) throws SQLException, IOException, ClassNotFoundException {
         try(Connection connection = DBConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM Proprietario " +
-                        "WHERE Codigo = ?"
+                        "WHERE P_Codigo = ?"
             );
             stmt.setInt(1, id);
             
@@ -40,13 +38,12 @@ public class ProprietarioDao implements GenericDao<Proprietario> {
         }
     }
 
-    @Override
     public boolean update(int id, Proprietario proprietario) throws SQLException, IOException, ClassNotFoundException {
         try(Connection connection = DBConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(
                     "UPDATE Proprietario " +
-                        "SET Nome = ?, Email = ?, Senha = ? " +
-                        "WHERE Codigo = ?"
+                        "SET P_Nome = ?, P_Email = ?, P_Senha = ? " +
+                        "WHERE P_Codigo = ?"
             );
             stmt.setString(1, proprietario.getNome());
             stmt.setString(2, proprietario.getEmail());
@@ -62,18 +59,18 @@ public class ProprietarioDao implements GenericDao<Proprietario> {
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT * " +
                         "FROM Proprietario " +
-                        "WHERE Codigo = ?"
+                        "WHERE P_Codigo = ?"
             );
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) {
-                int codigo = rs.getInt("Codigo");
-                String nome = rs.getString("Nome");
-                String email = rs.getString("Email");
-                String senha = rs.getString("Senha");
+                int P_Codigo = rs.getInt("P_Codigo");
+                String P_Nome = rs.getString("P_Nome");
+                String P_Email = rs.getString("P_Email");
+                String P_Senha = rs.getString("P_Senha");
 
-                return new Proprietario(codigo, nome, email, senha);
+                return new Proprietario(P_Codigo, P_Nome, P_Email, P_Senha);
             }
             return null;
         }

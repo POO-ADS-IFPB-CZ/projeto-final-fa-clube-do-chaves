@@ -11,12 +11,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InquilinoDao implements GenericDao<Inquilino> {
-    @Override
+public class InquilinoDao {
+
     public boolean insert(Inquilino inquilino) throws SQLException, IOException, ClassNotFoundException {
         try(Connection connection = DBConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO Inquilino(Nome, CPF, Telefone1, Telefone2) " +
+                    "INSERT INTO Inquilino(INQ_Nome, INQ_CPF, INQ_Telefone1, INQ_Telefone2) " +
                         "VALUES(?, ?, ?, ?)"
             );
             stmt.setString(1, inquilino.getNome());
@@ -28,12 +28,11 @@ public class InquilinoDao implements GenericDao<Inquilino> {
         }
     }
 
-    @Override
     public boolean delete(int id) throws SQLException, IOException, ClassNotFoundException {
         try(Connection connection = DBConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM Inquilino " +
-                        "WHERE Codigo = ?"
+                        "WHERE INQ_Codigo = ?"
             );
             stmt.setInt(1, id);
 
@@ -41,13 +40,12 @@ public class InquilinoDao implements GenericDao<Inquilino> {
         }
     }
 
-    @Override
     public boolean update(int id, Inquilino inquilino) throws SQLException, IOException, ClassNotFoundException {
         try(Connection connection = DBConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(
                     "UPDATE Inquilino " +
-                        "SET Nome = ?, CPF = ?, Telefone1 = ?, Telefone2 = ? " +
-                        "WHERE Codigo = ?"
+                        "SET INQ_Nome = ?, INQ_CPF = ?, INQ_Telefone1 = ?, INQ_Telefone2 = ? " +
+                        "WHERE INQ_Codigo = ?"
             );
             stmt.setString(1, inquilino.getNome());
             stmt.setString(2, inquilino.getCpf());
@@ -64,19 +62,19 @@ public class InquilinoDao implements GenericDao<Inquilino> {
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT * " +
                         "FROM Inquilino " +
-                        "WHERE Codigo = ?"
+                        "WHERE INQ_Codigo = ?"
             );
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) {
-                int codigo = rs.getInt("Codigo");
-                String nome = rs.getString("Nome");
-                String cpf = rs.getString("CPF");
-                String telefone1 = rs.getString("Telefone1");
-                String telefone2 = rs.getString("Telefone2");
+                int INQ_Codigo = rs.getInt("INQ_Codigo");
+                String INQ_Nome = rs.getString("INQ_Nome");
+                String INQ_Cpf = rs.getString("INQ_CPF");
+                String INQ_Telefone1 = rs.getString("INQ_Telefone1");
+                String INQ_Telefone2 = rs.getString("INQ_Telefone2");
 
-                return new Inquilino(codigo, nome, cpf, telefone1, telefone2);
+                return new Inquilino(INQ_Codigo, INQ_Nome, INQ_Cpf, INQ_Telefone1, INQ_Telefone2);
             }
             return null;
         }
@@ -87,19 +85,19 @@ public class InquilinoDao implements GenericDao<Inquilino> {
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT * " +
                         "FROM Inquilino " +
-                        "ORDER BY Codigo"
+                        "ORDER BY INQ_Codigo"
             );
             ResultSet rs = stmt.executeQuery();
 
             List<Inquilino> inquilinos = new ArrayList<>();
             while(rs.next()) {
-                int codigo = rs.getInt("Codigo");
-                String nome = rs.getString("Nome");
-                String cpf = rs.getString("CPF");
-                String telefone1 = rs.getString("Telefone1");
-                String telefone2 = rs.getString("Telefone2");
+                int INQ_Codigo = rs.getInt("INQ_Codigo");
+                String INQ_Nome = rs.getString("INQ_Nome");
+                String INQ_Cpf = rs.getString("INQ_CPF");
+                String INQ_Telefone1 = rs.getString("INQ_Telefone1");
+                String INQ_Telefone2 = rs.getString("INQ_Telefone2");
 
-                inquilinos.add(new Inquilino(codigo, nome, cpf, telefone1, telefone2));
+                inquilinos.add(new Inquilino(INQ_Codigo, INQ_Nome, INQ_Cpf, INQ_Telefone1, INQ_Telefone2));
             }
             return inquilinos;
         }
