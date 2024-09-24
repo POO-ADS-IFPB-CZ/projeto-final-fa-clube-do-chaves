@@ -26,21 +26,22 @@ public class TelaLoginController {
   @FXML
   private PasswordField senha;
 
-@FXML
-protected void goToTelaCadastro() throws IOException {
-  FXMLLoader fxmlLoader = new FXMLLoader(TelaLoginController.class.getResource("TelaCadastro.fxml"));
-  Parent root = fxmlLoader.load();
-  Stage stage = (Stage) email.getScene().getWindow();
-  Scene scene = new Scene(root);
-  stage.setScene(scene);
-  stage.show();
-}
+  @FXML
+  protected void goToTelaCadastro() throws IOException {
+    FXMLLoader fxmlLoader = new FXMLLoader(TelaLoginController.class.getResource("TelaCadastro.fxml"));
+    Parent root = fxmlLoader.load();
+    Stage stage = (Stage) email.getScene().getWindow();
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+  }
 
   @FXML
   protected void login() throws ClassNotFoundException, IOException {
 
     try (Connection con = DBConnector.getConnection()) {
-      PreparedStatement pst = con.prepareStatement("SELECT Codigo FROM proprietario WHERE email = ? AND senha = ?");
+      PreparedStatement pst = con
+          .prepareStatement("SELECT P_Codigo FROM proprietario WHERE P_Email = ? AND P_Senha = ?");
 
       pst.setString(1, email.getText());
       pst.setString(2, senha.getText());
@@ -48,8 +49,9 @@ protected void goToTelaCadastro() throws IOException {
       ResultSet rs = pst.executeQuery();
 
       if (rs.next()) {
-        int Codigo = rs.getInt("Codigo");
+        int Codigo = rs.getInt("P_Codigo");
         Proprietario proprietario = new ProprietarioDao().findById(Codigo);
+        proprietario.loadInfo();
         System.out.println("Usuário autenticado com sucesso!");
       } else {
         Alert alert = new Alert(AlertType.ERROR);

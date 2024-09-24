@@ -27,7 +27,7 @@ public class PagamentoSceneController {
 
     controller.setCodigo(String.valueOf(pagamento.getCodigo()));
     controller.setValor(String.valueOf(pagamento.getValor()));
-    controller.setData(pagamento.getDataPagamento());
+    controller.setData(pagamento.getDataPagamento().toString());
     controller.setForma(pagamento.getFormaPagamento());
     controller.setCodigoContrato(String.valueOf(pagamento.getContratoAluguel().getCodigo()));
 

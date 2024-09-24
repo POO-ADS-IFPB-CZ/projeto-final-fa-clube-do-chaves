@@ -53,7 +53,7 @@ public class TelaCadastroController {
     } catch (SQLException | ClassNotFoundException | IOException e) {
       e.printStackTrace();
     }
-}
+  }
 
   @FXML
   protected void irParaTelaLogin() throws IOException {
@@ -74,5 +74,5 @@ public class TelaCadastroController {
     stage.setScene(scene);
     stage.show();
   }
-  
+
 }

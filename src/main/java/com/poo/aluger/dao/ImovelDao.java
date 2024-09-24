@@ -15,7 +15,7 @@ import java.util.List;
 import java.awt.image.BufferedImage;
 
 public class ImovelDao {
-  
+
   public boolean insert(Imovel imovel) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
