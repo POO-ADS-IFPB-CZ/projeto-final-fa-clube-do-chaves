@@ -3,11 +3,11 @@ package com.poo.aluger.gui;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Objects;
 
 import com.poo.aluger.dao.ProprietarioDao;
 import com.poo.aluger.db.DBConnector;
 import com.poo.aluger.model.Proprietario;
+import com.poo.aluger.util.ProprietarioSingleton;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,8 +46,9 @@ public class TelaCadastroController {
         nome.setText("");
       } else {
         Proprietario proprietario = new Proprietario(nome.getText(), email.getText(), senha.getText());
+        ProprietarioSingleton.getInstance().setProprietario(proprietario);
         dao.insert(proprietario);
-        loadDashboard(proprietario);
+        loadDashboard();
       }
     } catch (SQLException | ClassNotFoundException | IOException e) {
       e.printStackTrace();
@@ -65,12 +66,12 @@ public class TelaCadastroController {
   }
 
   @FXML
-  public void loadDashboard(Proprietario proprietario) throws IOException {
+  public void loadDashboard() throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
     Parent root = fxmlLoader.load();
 
     DashboardController controller = fxmlLoader.getController();
-    controller.setProprietario(proprietario);
+    controller.initialize();
     Stage stage = (Stage) nome.getScene().getWindow();
     Scene scene = new Scene(root);
     stage.setTitle("Dashboard");

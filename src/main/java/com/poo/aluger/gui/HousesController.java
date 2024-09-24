@@ -2,9 +2,11 @@ package com.poo.aluger.gui;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import com.poo.aluger.model.Imovel;
+import com.poo.aluger.util.ProprietarioSingleton;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +22,15 @@ public class HousesController {
 
   @FXML
   private VBox imovelContainer; // VBox where items will be added dynamically
+
+  public void initialize() {
+    List<Imovel> imovels = ProprietarioSingleton.getInstance().getProprietario().getImoveis();
+    try {
+      addMultipleImoveis(imovels);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 
   public void addImovel(Imovel imovel) throws IOException {
     // Carregar o fxml do imovel
@@ -47,7 +58,7 @@ public class HousesController {
     imovelContainer.getChildren().add(imovelNode);
   }
 
-  public void addMultipleImoveis(Imovel[] imoveis) throws IOException {
+  public void addMultipleImoveis(List<Imovel> imoveis) throws IOException {
     for (Imovel imovel : imoveis) {
       addImovel(imovel);
     }

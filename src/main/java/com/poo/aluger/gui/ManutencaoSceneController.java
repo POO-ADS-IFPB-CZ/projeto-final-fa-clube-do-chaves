@@ -1,10 +1,12 @@
 package com.poo.aluger.gui;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import com.poo.aluger.model.Manutencao;
 
+import com.poo.aluger.util.ProprietarioSingleton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,9 +37,18 @@ public class ManutencaoSceneController {
     manutencaoContainer.getChildren().add(manutencaoNode);
   }
 
-  public void addManutencoes(Manutencao[] manutencoes) throws IOException {
+  public void addManutencoes(List<Manutencao> manutencoes) throws IOException {
     for (Manutencao manutencao : manutencoes) {
       addManutencao(manutencao);
+    }
+  }
+
+  public void initialize() {
+    List<Manutencao> manutencoes = ProprietarioSingleton.getInstance().getProprietario().getManutencoes();
+    try {
+      addManutencoes(manutencoes);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 

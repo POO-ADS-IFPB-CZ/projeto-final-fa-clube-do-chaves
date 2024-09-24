@@ -8,8 +8,9 @@ import java.sql.SQLException;
 
 import com.poo.aluger.dao.ProprietarioDao;
 import com.poo.aluger.db.DBConnector;
-
 import com.poo.aluger.model.Proprietario;
+import com.poo.aluger.util.ProprietarioSingleton;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -52,7 +53,8 @@ public class TelaLoginController {
         int Codigo = rs.getInt("P_Codigo");
         Proprietario proprietario = new ProprietarioDao().findById(Codigo);
         proprietario.loadInfo();
-        loadDashboard(proprietario);
+        ProprietarioSingleton.getInstance().setProprietario(proprietario);
+        loadDashboard();
       } else {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Erro de Login");
@@ -70,12 +72,13 @@ public class TelaLoginController {
   }
 
   @FXML
-  public void loadDashboard(Proprietario proprietario) throws IOException {
+  public void loadDashboard() throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
     Parent root = fxmlLoader.load();
 
     DashboardController controller = fxmlLoader.getController();
-    controller.setProprietario(proprietario);
+    controller.initialize();
+
     Stage stage = (Stage) email.getScene().getWindow();
     Scene scene = new Scene(root);
     stage.setTitle("Dashboard");

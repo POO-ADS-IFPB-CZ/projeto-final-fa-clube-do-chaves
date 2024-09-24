@@ -2,9 +2,11 @@ package com.poo.aluger.gui;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import com.poo.aluger.model.Inquilino;
+import com.poo.aluger.util.ProprietarioSingleton;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,9 +38,18 @@ public class InquilinosPageController {
     inquilinoContainer.getChildren().add(inquilinoNode);
   }
 
-  public void addInquilinos(Inquilino[] inquilinos) throws IOException {
+  public void addInquilinos(List<Inquilino> inquilinos) throws IOException {
     for (Inquilino imovel : inquilinos) {
       addInquilino(imovel);
+    }
+  }
+
+  public void initialize() {
+    List<Inquilino> inquilinos = ProprietarioSingleton.getInstance().getProprietario().getInquilinos();
+    try {
+      addInquilinos(inquilinos);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 
@@ -70,4 +81,3 @@ public class InquilinosPageController {
     stage.show();
   }
 }
-

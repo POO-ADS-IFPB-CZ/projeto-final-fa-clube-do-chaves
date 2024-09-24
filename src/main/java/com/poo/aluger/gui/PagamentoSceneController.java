@@ -1,9 +1,11 @@
 package com.poo.aluger.gui;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import com.poo.aluger.model.Pagamento;
+import com.poo.aluger.util.ProprietarioSingleton;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,10 +36,19 @@ public class PagamentoSceneController {
     pagamentos.getChildren().add(pagamentoNode);
   }
 
-  public void addPagamentos(Pagamento[] pagamentos) throws IOException {
+  public void addPagamentos(List<Pagamento> pagamentos) throws IOException {
     for (Pagamento pagamento : pagamentos) {
       addPagamento(pagamento);
 
+    }
+  }
+
+  public void initialize() {
+    List<Pagamento> pagamentos = ProprietarioSingleton.getInstance().getProprietario().getPagamentos();
+    try {
+      addPagamentos(pagamentos);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 

@@ -16,10 +16,13 @@
    <top>
       <Pane prefHeight="60.0" prefWidth="1000.0" style="-fx-background-color: #383c42;" BorderPane.alignment="CENTER">
          <children>
-            <Button alignment="TOP_LEFT" layoutX="889.0" layoutY="15.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Logout" textFill="WHITE">
+            <Button alignment="TOP_LEFT" layoutX="889.0" layoutY="15.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: transparent;" text="Logout" textFill="WHITE">
                <font>
                   <Font size="22.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button alignment="TOP_LEFT" layoutX="792.0" layoutY="15.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Conta" textFill="WHITE">
                <font>
@@ -57,7 +60,7 @@
                               <FontAwesomeIconView fill="WHITE" glyphName="HOME" layoutX="32.0" layoutY="68.0" selectionEnd="0" size="60" />
                               <AnchorPane layoutX="119.0" layoutY="-1.0" prefHeight="95.0" prefWidth="150.0">
                                  <children>
-                                    <Text fill="WHITE" layoutX="77.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
+                                    <Text fx:id="imoveisQtd" fill="WHITE" layoutX="77.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0">
                                        <font>
                                           <Font size="30.0" />
                                        </font>
@@ -99,7 +102,7 @@
                               <FontAwesomeIconView fill="WHITE" glyphName="GROUP" layoutX="32.0" layoutY="68.0" selectionEnd="0" size="60" />
                               <AnchorPane layoutX="119.0" layoutY="-1.0" prefHeight="95.0" prefWidth="150.0">
                                  <children>
-                                    <Text fill="WHITE" layoutX="77.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
+                                    <Text fx:id="inquilinosQtd" fill="WHITE" layoutX="77.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0">
                                        <font>
                                           <Font size="30.0" />
                                        </font>
@@ -144,7 +147,7 @@
                               <FontAwesomeIconView fill="WHITE" glyphName="MONEY" layoutX="32.0" layoutY="68.0" selectionEnd="0" size="60" />
                               <AnchorPane layoutX="119.0" layoutY="-1.0" prefHeight="95.0" prefWidth="150.0">
                                  <children>
-                                    <Text fill="WHITE" layoutX="66.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5">
+                                    <Text fx:id="pagamentosQtd" fill="WHITE" layoutX="66.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0">
                                        <font>
                                           <Font size="30.0" />
                                        </font>
@@ -189,7 +192,7 @@
                               <FontAwesomeIconView fill="WHITE" glyphName="COGS" layoutX="32.0" layoutY="68.0" selectionEnd="0" size="60" />
                               <AnchorPane layoutX="119.0" layoutY="-1.0" prefHeight="95.0" prefWidth="150.0">
                                  <children>
-                                    <Text fill="WHITE" layoutX="60.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="7">
+                                    <Text fx:id="manutencoesQtd" fill="WHITE" layoutX="60.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0">
                                        <font>
                                           <Font size="30.0" />
                                        </font>
@@ -234,12 +237,57 @@
                               <FontAwesomeIconView fill="WHITE" glyphName="LINE_CHART" layoutX="32.0" layoutY="68.0" selectionEnd="0" size="60" />
                               <AnchorPane layoutX="119.0" layoutY="-1.0" prefHeight="95.0" prefWidth="150.0">
                                  <children>
-                                    <Text fill="WHITE" layoutX="48.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1234">
+                                    <Text fx:id="saldoVal" fill="WHITE" layoutX="48.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0">
                                        <font>
                                           <Font size="30.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="WHITE" layoutX="57.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saldo">
+                                    <Text fill="WHITE" layoutX="46.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saldo">
+                                       <font>
+                                          <Font size="21.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </center>
+                     <bottom>
+                        <AnchorPane prefHeight="42.0" prefWidth="310.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Text layoutX="21.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ver detalhes">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Text>
+                              <Button layoutX="228.0" layoutY="7.0" mnemonicParsing="false" onAction="#hello" prefHeight="29.0" prefWidth="24.0" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-background-color: transparent;" textFill="WHITE" textOverrun="CLIP">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="#6c737e" glyphName="ARROW_CIRCLE_RIGHT" selectionEnd="0" selectionFill="#fec800" size="30" text="" wrappingWidth="25.71428680419922" />
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </bottom>
+                  </BorderPane>
+                  <BorderPane layoutX="317.0" layoutY="180.0" prefHeight="410.0" prefWidth="336.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <center>
+                        <AnchorPane prefHeight="255.0" prefWidth="336.0" style="-fx-background-color: #6c737e;" BorderPane.alignment="CENTER">
+                           <children>
+                              <FontAwesomeIconView fill="WHITE" glyphName="LINE_CHART" layoutX="32.0" layoutY="68.0" selectionEnd="0" size="60" />
+                              <AnchorPane layoutX="119.0" layoutY="-1.0" prefHeight="95.0" prefWidth="150.0">
+                                 <children>
+                                    <Text fx:id="contratosQtd" fill="WHITE" layoutX="48.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                                       <font>
+                                          <Font size="30.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" layoutX="35.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contratos">
                                        <font>
                                           <Font size="21.0" />
                                        </font>
@@ -274,11 +322,20 @@
                   </BorderPane>
                </children>
             </GridPane>
-            <Text layoutX="23.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, Darling" wrappingWidth="234.52734375">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Text>
+            <AnchorPane layoutX="23.0" layoutY="4.0" prefHeight="25.0" prefWidth="920.0">
+               <children>
+                  <Text layoutX="8.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome," wrappingWidth="127.52734375">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="nomeProp" layoutX="143.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="777.52734375">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </center>

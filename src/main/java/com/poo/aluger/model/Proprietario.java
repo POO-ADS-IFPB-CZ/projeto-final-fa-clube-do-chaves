@@ -81,7 +81,7 @@ public class Proprietario implements Serializable {
   }
 
   public Proprietario(String nome, String email, String senha, double saldo, int qtdContratos, int qtdImoveis,
-                      int qtdManutencoes, int qtdPagamentos, int qtdInquilinos) {
+      int qtdManutencoes, int qtdPagamentos, int qtdInquilinos) {
     this(null, nome, email, senha, saldo, qtdContratos, qtdImoveis, qtdManutencoes, qtdPagamentos, qtdInquilinos);
   }
 
@@ -165,12 +165,52 @@ public class Proprietario implements Serializable {
     this.qtdInquilinos = qtdInquilinos;
   }
 
+  public List<Imovel> getImoveis() {
+    return imoveis;
+  }
+
+  public List<ContratoAluguel> getContratos() {
+    return contratos;
+  }
+
+  public List<Manutencao> getManutencoes() {
+    return manutencoes;
+  }
+
+  public List<Pagamento> getPagamentos() {
+    return pagamentos;
+  }
+
+  public List<Inquilino> getInquilinos() {
+    return inquilinos;
+  }
+
+  public void addImovel(Imovel imovel) {
+    imoveis.add(imovel);
+  }
+
+  public void addContrato(ContratoAluguel contrato) {
+    contratos.add(contrato);
+  }
+
+  public void addManutencao(Manutencao manutencao) {
+    manutencoes.add(manutencao);
+  }
+
+  public void addPagamento(Pagamento pagamento) {
+    pagamentos.add(pagamento);
+  }
+
+  public void addInquilino(Inquilino inquilino) {
+    inquilinos.add(inquilino);
+  }
+
   public void loadInfo() throws ClassNotFoundException, SQLException, IOException {
-      imoveis = new ImovelDao().findAll(codigo);
-      contratos = new ContratoAluguelDao().findAll(codigo);
-      manutencoes = new ManutencaoDao().findAll(codigo);
-      pagamentos = new PagamentoDao().findAll(codigo);
-      inquilinos = new InquilinoDao().findAll(codigo);
+    imoveis = new ImovelDao().findAll(codigo);
+    contratos = new ContratoAluguelDao().findAll(codigo);
+    manutencoes = new ManutencaoDao().findAll(codigo);
+    pagamentos = new PagamentoDao().findAll(codigo);
+    inquilinos = new InquilinoDao().findAll(codigo);
     saldo = pagamentos.stream().mapToDouble(Pagamento::getValor).sum()
         - manutencoes.stream().mapToDouble(Manutencao::getCusto).sum();
     qtdContratos = contratos.size();
