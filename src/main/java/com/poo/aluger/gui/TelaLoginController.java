@@ -52,7 +52,7 @@ public class TelaLoginController {
         int Codigo = rs.getInt("P_Codigo");
         Proprietario proprietario = new ProprietarioDao().findById(Codigo);
         proprietario.loadInfo();
-        System.out.println("Usuário autenticado com sucesso!");
+        loadDashboard(proprietario);
       } else {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Erro de Login");
@@ -68,4 +68,19 @@ public class TelaLoginController {
       System.out.println(ex.getMessage());
     }
   }
+
+  @FXML
+  public void loadDashboard(Proprietario proprietario) throws IOException {
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+    Parent root = fxmlLoader.load();
+
+    DashboardController controller = fxmlLoader.getController();
+    controller.setProprietario(proprietario);
+    Stage stage = (Stage) email.getScene().getWindow();
+    Scene scene = new Scene(root);
+    stage.setTitle("Dashboard");
+    stage.setScene(scene);
+    stage.show();
+  }
+
 }

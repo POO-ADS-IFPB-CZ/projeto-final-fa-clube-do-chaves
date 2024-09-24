@@ -47,8 +47,7 @@ public class TelaCadastroController {
       } else {
         Proprietario proprietario = new Proprietario(nome.getText(), email.getText(), senha.getText());
         dao.insert(proprietario);
-        System.out.println("Usuário cadastrado com sucesso!");
-        loadDashboard();
+        loadDashboard(proprietario);
       }
     } catch (SQLException | ClassNotFoundException | IOException e) {
       e.printStackTrace();
@@ -66,8 +65,12 @@ public class TelaCadastroController {
   }
 
   @FXML
-  public void loadDashboard() throws IOException {
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("dashboard.fxml")));
+  public void loadDashboard(Proprietario proprietario) throws IOException {
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+    Parent root = fxmlLoader.load();
+
+    DashboardController controller = fxmlLoader.getController();
+    controller.setProprietario(proprietario);
     Stage stage = (Stage) nome.getScene().getWindow();
     Scene scene = new Scene(root);
     stage.setTitle("Dashboard");

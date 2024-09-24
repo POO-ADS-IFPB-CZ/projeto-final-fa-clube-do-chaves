@@ -1,5 +1,6 @@
 package com.poo.aluger.gui;
 
+import java.awt.TextField;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import javax.imageio.ImageIO;
 import com.poo.aluger.model.Imovel;
 import com.poo.aluger.model.Inquilino;
 import com.poo.aluger.model.Manutencao;
+import com.poo.aluger.model.Proprietario;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -27,6 +30,11 @@ public class DashboardController {
   private Scene scene;
   private Stage stage;
   private FXMLLoader fxmlLoader;
+
+  private Proprietario proprietario;
+
+  @FXML
+  private Text imoveisQtd, inquilinosQtd, manutencoesQtd, pagamentosQtd, contratosQtd, saldoVal, nomeProp;
 
   @FXML
   public void up(ActionEvent event) {
@@ -72,8 +80,7 @@ public class DashboardController {
         "Disponivel",
         2,
         "Casa com 3 quartos e 2 banheiros",
-        null
-    );
+        null);
 
     controller.addImovel(imovel);
     controller.addImovel(imovel);
@@ -123,11 +130,12 @@ public class DashboardController {
         "Disponivel",
         2,
         "Casa com 3 quartos e 2 banheiros",
-        null
-    );
+        null);
 
-    Manutencao manutencao = new Manutencao(1, "Pintura", LocalDate.of(2021, 1, 2), LocalDate.of(2023, 1, 2), 100.0, imovel);
-    Manutencao manutencao2 = new Manutencao(2, "Pintura", LocalDate.of(2021, 1, 2), LocalDate.of(2021, 1, 4), 100.0, imovel);
+    Manutencao manutencao = new Manutencao(1, "Pintura", LocalDate.of(2021, 1, 2), LocalDate.of(2023, 1, 2), 100.0,
+        imovel);
+    Manutencao manutencao2 = new Manutencao(2, "Pintura", LocalDate.of(2021, 1, 2), LocalDate.of(2021, 1, 4), 100.0,
+        imovel);
 
     controller.addManutencao(manutencao);
     controller.addManutencao(manutencao2);
@@ -149,6 +157,28 @@ public class DashboardController {
     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setTitle("Pagamentos");
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  public void setProprietario(Proprietario proprietario) {
+    this.proprietario = proprietario;
+    imoveisQtd.setText(String.valueOf(proprietario.getQtdImoveis()));
+    inquilinosQtd.setText(String.valueOf(proprietario.getQtdInquilinos()));
+    manutencoesQtd.setText(String.valueOf(proprietario.getQtdManutencoes()));
+    pagamentosQtd.setText(String.valueOf(proprietario.getQtdPagamentos()));
+    contratosQtd.setText(String.valueOf(proprietario.getQtdContratos()));
+    saldoVal.setText(String.valueOf(proprietario.getSaldo()));
+    nomeProp.setText(proprietario.getNome());
+  }
+
+  @FXML
+  public void logout(ActionEvent event) throws IOException {
+    fxmlLoader = new FXMLLoader(DashboardController.class.getResource("TelaLogin.fxml"));
+    root = fxmlLoader.load();
+    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setTitle("Login");
     stage.setScene(scene);
     stage.show();
   }
