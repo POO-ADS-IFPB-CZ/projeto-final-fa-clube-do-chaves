@@ -16,7 +16,7 @@ public class InquilinoDao {
   public boolean insert(Inquilino inquilino) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
-          "INSERT INTO Inquilino(Nome, CPF, Telefone1, Telefone2) " +
+          "INSERT INTO Inquilino(INQ_Nome, INQ_CPF, INQ_Telefone1, INQ_Telefone2) " +
               "VALUES(?, ?, ?, ?)");
       stmt.setString(1, inquilino.getNome());
       stmt.setString(2, inquilino.getCpf());
@@ -31,7 +31,7 @@ public class InquilinoDao {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
           "DELETE FROM Inquilino " +
-              "WHERE Codigo = ?");
+              "WHERE INQ_Codigo = ?");
       stmt.setInt(1, id);
 
       return stmt.executeUpdate() > 0;
@@ -42,8 +42,8 @@ public class InquilinoDao {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
           "UPDATE Inquilino " +
-              "SET Nome = ?, CPF = ?, Telefone1 = ?, Telefone2 = ? " +
-              "WHERE Codigo = ?");
+              "SET INQ_Nome = ?, INQ_CPF = ?, INQ_Telefone1 = ?, INQ_Telefone2 = ? " +
+              "WHERE INQ_Codigo = ?");
       stmt.setString(1, inquilino.getNome());
       stmt.setString(2, inquilino.getCpf());
       stmt.setString(3, inquilino.getTelefone1());
@@ -57,44 +57,47 @@ public class InquilinoDao {
   public List<Inquilino> findAll(int idProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
-          "SELECT inquilino.* " +
-              "FROM Inquilino " +
-              "INNER JOIN ContratoAluguel on Inquilino.inq_codigo = ContratoAluguel.ca_CodigoInquilino " +
-              "WHERE ContratoAluguel.ca_CodigoProprietario = ?");
+          "SELECT INQ.* " +
+              "FROM Inquilino INQ " +
+              "INNER JOIN ContratoAluguel on INQ_Codigo = CA_CodigoInquilino " +
+              "WHERE CA_CodigoProprietario = ?");
       stmt.setInt(1, idProprietario);
       ResultSet rs = stmt.executeQuery();
 
       List<Inquilino> inquilinos = new ArrayList<>();
       while (rs.next()) {
-        int codigo = rs.getInt("INQ_Codigo");
-        String nome = rs.getString("INQ_Nome");
-        String cpf = rs.getString("INQ_CPF");
-        String telefone1 = rs.getString("INQ_Telefone1");
-        String telefone2 = rs.getString("INQ_Telefone2");
+        int INQ_Codigo = rs.getInt("INQ_Codigo");
+        String INQ_Nome = rs.getString("INQ_Nome");
+        String INQ_Cpf = rs.getString("INQ_CPF");
+        String INQ_Telefone1 = rs.getString("INQ_Telefone1");
+        String INQ_Telefone2 = rs.getString("INQ_Telefone2");
 
-        inquilinos.add(new Inquilino(codigo, nome, cpf, telefone1, telefone2));
+        inquilinos.add(new Inquilino(INQ_Codigo, INQ_Nome, INQ_Cpf, INQ_Telefone1, INQ_Telefone2));
       }
       return inquilinos;
     }
   }
 
-  public Inquilino findById(int idInquilino) {
+  public Inquilino findById(int idInquilino, int idProprietario) {
     try (Connection conn = DBConnector.getConnection()) {
       PreparedStatement stmt = conn.prepareStatement(
-          "SELECT * " +
-              "FROM Inquilino " +
-              "WHERE INQ_Codigo = ?");
+          "SELECT INQ.* " +
+              "FROM Inquilino INQ " +
+              "INNER JOIN ContratoAluguel ON INQ_Codigo = CA_CodigoInquilino " +
+              "WHERE INQ_Codigo = ? AND CA_CodigoProprietario = ?"
+      );
       stmt.setInt(1, idInquilino);
+      stmt.setInt(2, idProprietario);
       ResultSet rs = stmt.executeQuery();
 
       if (rs.next()) {
-        int codigo = rs.getInt("INQ_Codigo");
-        String nome = rs.getString("INQ_Nome");
-        String cpf = rs.getString("INQ_CPF");
-        String telefone1 = rs.getString("INQ_Telefone1");
-        String telefone2 = rs.getString("INQ_Telefone2");
+        int INQ_Codigo = rs.getInt("INQ_Codigo");
+        String INQ_Nome = rs.getString("INQ_Nome");
+        String INQ_Cpf = rs.getString("INQ_CPF");
+        String INQ_Telefone1 = rs.getString("INQ_Telefone1");
+        String INQ_Telefone2 = rs.getString("INQ_Telefone2");
 
-        return new Inquilino(codigo, nome, cpf, telefone1, telefone2);
+        return new Inquilino(INQ_Codigo, INQ_Nome, INQ_Cpf, INQ_Telefone1, INQ_Telefone2);
       }
       return null;
     } catch (Exception e) {
