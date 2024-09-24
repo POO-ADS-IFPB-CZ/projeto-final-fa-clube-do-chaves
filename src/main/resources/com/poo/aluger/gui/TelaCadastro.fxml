@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="700.0" prefWidth="1000.0" spacing="20.0" style="-fx-background-color: #019ade;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poo.aluger.gui">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="700.0" prefWidth="1000.0" spacing="20.0" style="-fx-background-color: #019ade;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poo.aluger.gui.TelaCadastroController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    <VBox prefHeight="422.0" prefWidth="356.0" style="-fx-background-color: #FFFFFF;">
+    <VBox prefHeight="409.0" prefWidth="356.0" style="-fx-background-color: #FFFFFF;">
         <children>
             <StackPane>
                 <VBox.margin>
@@ -40,7 +46,7 @@
                     <Insets left="40.0" top="20.0" />
                 </VBox.margin>
             </Label>
-            <TextField id="nome" prefHeight="40.0" prefWidth="364.0" promptText="Nome">
+            <TextField id="nome" fx:id="nome" prefHeight="40.0" prefWidth="364.0" promptText="Nome">
                 <VBox.margin>
                     <Insets left="40.0" right="40.0" top="10.0" />
                 </VBox.margin>
@@ -50,7 +56,7 @@
                     <Insets left="40.0" top="10.0" />
                 </VBox.margin>
             </Label>
-            <TextField id="email" prefHeight="40.0" promptText="Email">
+            <TextField id="email" fx:id="email" prefHeight="40.0" promptText="Email">
                 <VBox.margin>
                     <Insets left="40.0" right="40.0" top="10.0" />
                 </VBox.margin>
@@ -60,23 +66,31 @@
                     <Insets left="40.0" top="10.0" />
                 </VBox.margin>
             </Label>
-            <PasswordField id="senha" prefHeight="40.0" promptText="Senha">
+            <PasswordField id="senha" fx:id="senha" prefHeight="40.0" promptText="Senha">
                 <VBox.margin>
                     <Insets left="40.0" right="40.0" top="10.0" />
                 </VBox.margin>
             </PasswordField>
-            <StackPane>
-                <children>
-                    <Button id="buttonCadastrar" mnemonicParsing="false" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #6495ED; -fx-background-radius: 5;" text="Cadastrar" textFill="WHITE">
-                        <StackPane.margin>
-                            <Insets top="20.0" />
-                        </StackPane.margin>
+         <AnchorPane prefHeight="87.0" prefWidth="356.0">
+            <children>
+                    <Button id="buttonCadastrar" layoutX="18.0" layoutY="19.0" mnemonicParsing="false" onAction="#cadastrar" prefHeight="50.0" prefWidth="159.0" style="-fx-background-color: #6495ED; -fx-background-radius: 5;" text="Cadastrar" textFill="WHITE">
                         <font>
                             <Font size="16.0" />
                         </font>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                     </Button>
-                </children>
-            </StackPane>
+               <Button id="buttonCadastrar" alignment="CENTER" layoutX="195.0" layoutY="27.0" mnemonicParsing="false" onAction="#irParaTelaLogin" prefHeight="35.0" prefWidth="147.0" style="-fx-border-color: #6495ED; -fx-border-radius: 5; -fx-background-color: transparent;" text="Login" textFill="CORNFLOWERBLUE">
+                  <font>
+                     <Font size="16.0" />
+                  </font>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </Button>
+            </children>
+         </AnchorPane>
         </children>
         <VBox.margin>
             <Insets />

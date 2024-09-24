@@ -12,7 +12,7 @@ public class ImovelController {
 
   @FXML
   private Label tipo, estado, cidade, bairro, rua, numero, codigo, areaTotal, quartos,
-      banheiros, status;
+      banheiros, status, nomeInquilino, codigoInquilino, telefone1, telefone2, cpf;
 
   @FXML
   private ImageView image;
@@ -64,5 +64,25 @@ public class ImovelController {
 
   public void setStatus(String status) {
     this.status.setText(status);
+  }
+
+  public void setNomeInquilino(String nomeInquilino) {
+    this.nomeInquilino.setText(nomeInquilino);
+  }
+
+  public void setCodigoInquilino(String codigoInquilino) {
+    this.codigoInquilino.setText(codigoInquilino);
+  }
+
+  public void setTelefone1(String telefone1) {
+    this.telefone1.setText(telefone1);
+  }
+
+  public void setTelefone2(String telefone2) {
+    this.telefone2.setText(telefone2);
+  }
+
+  public void setCpf(String cpf) {
+    this.cpf.setText(cpf);
   }
 }

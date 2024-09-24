@@ -9,18 +9,17 @@ import java.util.Properties;
 
 public class DBConnector {
 
-    public static Connection getConnection() throws SQLException, ClassNotFoundException, IOException {
-        try(FileInputStream fis = new FileInputStream("db.properties")) {
-            Properties properties = new Properties();
-            properties.load(fis);
+  public static Connection getConnection() throws SQLException, ClassNotFoundException, IOException {
+    try (FileInputStream fis = new FileInputStream("db.properties")) {
+      Properties properties = new Properties();
+      properties.load(fis);
 
-            Class.forName("org.postgresql.Driver");
+      Class.forName("org.postgresql.Driver");
 
-            return DriverManager.getConnection(
-                    properties.getProperty("url"),
-                    properties.getProperty("user"),
-                    properties.getProperty("password")
-            );
-        }
+      return DriverManager.getConnection(
+          properties.getProperty("url"),
+          properties.getProperty("user"),
+          properties.getProperty("password"));
     }
+  }
 }
