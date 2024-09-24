@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="260.0" prefWidth="330.0" spacing="20.0" style="-fx-background-color: #f5f5f5; -fx-border-color: #d3d3d3; -fx-border-radius: 10; -fx-padding: 20; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poo.aluger.gui.InquilinoController">
+    
+    <!-- Título com o nome do inquilino -->
+    <HBox alignment="CENTER" prefHeight="50.0" prefWidth="300.0" style="-fx-background-radius: 5;">
+      <children>
+           <Label fx:id="nome" graphicTextGap="0.0" text="ahndgad">
+               <font>
+                   <Font name="System Bold Italic" size="20.0" />
+               </font>
+           </Label>
+      </children>
+    </HBox>
+
+    <!-- Grid para mostrar os detalhes -->
+    <GridPane hgap="10" style="-fx-padding: 10;" vgap="15">
+        <!-- Código -->
+        <Label style="-fx-font-weight: bold;" text="Código:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label fx:id="codigo" text="12345" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+        <!-- CPF -->
+        <Label style="-fx-font-weight: bold;" text="CPF:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label fx:id="cpf" text="123.456.789-00" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <!-- Telefone 1 -->
+        <Label style="-fx-font-weight: bold;" text="Telefone 1:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label fx:id="telefone1" text="(11) 12345-6789" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+        <!-- Telefone 2 -->
+        <Label style="-fx-font-weight: bold;" text="Telefone 2:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label fx:id="telefone2" text="(11) 98765-4321" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+    </GridPane>
+
+    <!-- Botão para editar os dados -->
+    <HBox alignment="CENTER_RIGHT">
+        <Button fx:id="editButton" prefWidth="80.0" style="-fx-background-color: #2196f3; -fx-text-fill: white;" text="Editar" />
+    </HBox>
+</VBox>
