@@ -57,14 +57,16 @@ public class InquilinoDao {
         }
     }
 
-    public Inquilino findById(int id) throws SQLException, IOException, ClassNotFoundException {
+    public Inquilino findById(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
         try(Connection connection = DBConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT * " +
-                        "FROM Inquilino " +
-                        "WHERE INQ_Codigo = ?"
+                        "FROM Inquilino INQ " +
+                        "INNER JOIN ContratoAluguel ON INQ_Codigo = CA_CodigoInquilino " +
+                        "WHERE INQ_Codigo = ? AND CA_CodigoProprietario = ?"
             );
             stmt.setInt(1, id);
+            stmt.setInt(2, codigoProprietario);
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) {
@@ -80,13 +82,16 @@ public class InquilinoDao {
         }
     }
 
-    public List<Inquilino> findAll() throws SQLException, IOException, ClassNotFoundException {
+    public List<Inquilino> findAll(int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
         try(Connection connection = DBConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT * " +
-                        "FROM Inquilino " +
+                    "SELECT INQ.* " +
+                        "FROM Inquilino INQ " +
+                        "INNER JOIN ContratoAluguel ON INQ_Codigo = CA_CodigoInquilino " +
+                        "WHERE CA_CodigoProprietario = ? " +
                         "ORDER BY INQ_Codigo"
             );
+            stmt.setInt(1, codigoProprietario);
             ResultSet rs = stmt.executeQuery();
 
             List<Inquilino> inquilinos = new ArrayList<>();
