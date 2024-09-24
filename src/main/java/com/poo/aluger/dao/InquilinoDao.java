@@ -60,7 +60,7 @@ public class InquilinoDao {
     public Inquilino findById(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
         try(Connection connection = DBConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT * " +
+                    "SELECT INQ.* " +
                         "FROM Inquilino INQ " +
                         "INNER JOIN ContratoAluguel ON INQ_Codigo = CA_CodigoInquilino " +
                         "WHERE INQ_Codigo = ? AND CA_CodigoProprietario = ?"
