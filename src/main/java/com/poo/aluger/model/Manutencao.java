@@ -1,17 +1,18 @@
 package com.poo.aluger.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Manutencao implements Serializable {
     private int codigo;
     private  String tipo;
-    private String dataInicio;
-    private String dataTermino;
+    private LocalDate dataInicio;
+    private LocalDate dataTermino;
     private double custo;
     private  Imovel imovel;
 
-    public Manutencao(int codigo, String tipo, String dataInicio, String dataTermino,
+    public Manutencao(int codigo, String tipo, LocalDate dataInicio, LocalDate dataTermino,
                       double custo, Imovel imovel) {
         this.codigo = codigo;
         this.tipo = tipo;
@@ -21,7 +22,7 @@ public class Manutencao implements Serializable {
         this.imovel = imovel;
     }
 
-    public Manutencao(double custo, String tipo, String dataInicio, String dataTermino, Imovel imovel) {
+    public Manutencao(double custo, String tipo, LocalDate dataInicio, LocalDate dataTermino, Imovel imovel) {
         this.custo = custo;
         this.tipo = tipo;
         this.dataInicio = dataInicio;
@@ -41,19 +42,19 @@ public class Manutencao implements Serializable {
         this.tipo = tipo;
     }
 
-    public String getDataInicio() {
+    public LocalDate getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(String dataInicio) {
+    public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public String getDataTermino() {
+    public LocalDate getDataTermino() {
         return dataTermino;
     }
 
-    public void setDataTermino(String dataTermino) {
+    public void setDataTermino(LocalDate dataTermino) {
         this.dataTermino = dataTermino;
     }
 

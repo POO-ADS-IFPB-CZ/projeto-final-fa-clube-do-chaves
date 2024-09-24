@@ -21,20 +21,17 @@ public class Imovel implements Serializable {
     private String cidade;
     private String estado;
 
-    public Imovel(int codigo, BufferedImage foto , String tipo, double areaTotal, int quantidadeQuartos,
-                  String status, int quantidadeBanheiros, String descricao, double valorAluguel,
-                  Proprietario proprietario, String rua, int numero, String bairro,
-                  String cidade, String estado) {
-        this.codigo = codigo;
+    public Imovel(int codigo, BufferedImage foto, String rua, int numero, String bairro, String cidade,
+            String estado, String tipoImovel, double areaTotal, int qtdQuartos, String status,
+            int qtdBanheiros, String descricao, Proprietario proprietario2) {
         this.foto = foto;
-        this.tipo = tipo;
+        this.tipo = tipoImovel;
         this.areaTotal = areaTotal;
-        this.quantidadeQuartos = quantidadeQuartos;
+        this.quantidadeQuartos = qtdQuartos;
         this.status = status;
-        this.quantidadeBanheiros = quantidadeBanheiros;
+        this.quantidadeBanheiros = qtdBanheiros;
         this.descricao = descricao;
-        this.valorAluguel = valorAluguel;
-        this.proprietario = proprietario;
+        this.proprietario = proprietario2;
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
@@ -42,18 +39,17 @@ public class Imovel implements Serializable {
         this.estado = estado;
     }
 
-    public Imovel(BufferedImage foto, String tipo, double areaTotal, int quantidadeQuartos, String status,
-                  int quantidadeBanheiros, String descricao, float valorAluguel, Proprietario proprietario,
-                  String rua, int numero, String bairro, String cidade, String estado) {
+    public Imovel(BufferedImage foto, String rua, int numero, String bairro, String cidade,
+            String estado, String tipoImovel, double areaTotal, int qtdQuartos, String status,
+            int qtdBanheiros, String descricao, Proprietario proprietario2) {
         this.foto = foto;
-        this.tipo = tipo;
+        this.tipo = tipoImovel;
         this.areaTotal = areaTotal;
-        this.quantidadeQuartos = quantidadeQuartos;
+        this.quantidadeQuartos = qtdQuartos;
         this.status = status;
-        this.quantidadeBanheiros = quantidadeBanheiros;
+        this.quantidadeBanheiros = qtdBanheiros;
         this.descricao = descricao;
-        this.valorAluguel = valorAluguel;
-        this.proprietario = proprietario;
+        this.proprietario = proprietario2;
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;

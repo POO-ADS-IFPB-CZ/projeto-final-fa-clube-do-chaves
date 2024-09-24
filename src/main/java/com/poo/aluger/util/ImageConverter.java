@@ -28,6 +28,12 @@ public class ImageConverter {
     return ImageIO.read(byteArrayInputStream);
   }
 
+  public static byte[] convertBufferedImageToBytes(BufferedImage bufferedImage) throws IOException {
+    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
+    return byteArrayOutputStream.toByteArray();
+  }
+
   public static Image getImage(BufferedImage img) {
     BufferedImage newImg = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
     newImg.createGraphics().drawImage(img, 0, 0, img.getWidth(), img.getHeight(), null);

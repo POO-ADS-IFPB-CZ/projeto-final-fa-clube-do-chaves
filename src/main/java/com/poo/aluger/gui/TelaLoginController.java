@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
 
 import com.poo.aluger.dao.ProprietarioDao;
 import com.poo.aluger.db.DBConnector;
@@ -52,7 +51,6 @@ protected void goToTelaCadastro() throws IOException {
         int Codigo = rs.getInt("Codigo");
         Proprietario proprietario = new ProprietarioDao().findById(Codigo);
         System.out.println("Usuário autenticado com sucesso!");
-        loadDashboard();
       } else {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Erro de Login");
@@ -67,15 +65,5 @@ protected void goToTelaCadastro() throws IOException {
     } catch (SQLException ex) {
       System.out.println(ex.getMessage());
     }
-  }
-
-  @FXML
-  public void loadDashboard() throws IOException {
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("dashboard.fxml")));
-    Stage stage = (Stage) email.getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setTitle("Dashboard");
-    stage.setScene(scene);
-    stage.show();
   }
 }

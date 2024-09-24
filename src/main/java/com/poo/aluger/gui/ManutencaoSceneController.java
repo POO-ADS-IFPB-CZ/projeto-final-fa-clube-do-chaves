@@ -24,7 +24,6 @@ public class ManutencaoSceneController {
     Node manutencaoNode = loader.load();
 
     ManutencaoController controller = loader.getController();
-    var custo = manutencao.getCusto();
 
     controller.setCodigo(String.valueOf(manutencao.getCodigo()));
     controller.setTipo(manutencao.getTipo());

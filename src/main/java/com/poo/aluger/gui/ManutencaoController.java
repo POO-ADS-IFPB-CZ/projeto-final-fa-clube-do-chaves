@@ -1,5 +1,7 @@
 package com.poo.aluger.gui;
 
+import java.time.LocalDate;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -16,12 +18,14 @@ public class ManutencaoController {
     this.tipo.setText(tipo);
   }
 
-  public void setDataInicio(String dataInicio) {
-    this.dataInicio.setText(dataInicio);
+  public void setDataInicio(LocalDate dataInicio) {
+    String data = dataInicio.getDayOfMonth() + "/" + dataInicio.getMonthValue() + "/" + dataInicio.getYear();
+    this.dataInicio.setText(data);
   }
 
-  public void setDataTermino(String dataTermino) {
-    this.dataTermino.setText(dataTermino);
+  public void setDataTermino(LocalDate dataTermino) {
+    String data = dataTermino.getDayOfMonth() + "/" + dataTermino.getMonthValue() + "/" + dataTermino.getYear();
+    this.dataTermino.setText(data);
   }
 
   public void setValor(String valor) {

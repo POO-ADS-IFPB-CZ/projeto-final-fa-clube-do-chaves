@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 
 import javax.imageio.ImageIO;
 
@@ -31,7 +32,7 @@ public class DashboardController {
   public void up(ActionEvent event) {
     FileChooser fileChooser = new FileChooser();
     fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("All Files", "*.*"));
+        new FileChooser.ExtensionFilter("All Files", "*.*"));
     File file = fileChooser.showOpenDialog(null);
     if (file != null) {
       System.out.println("File chosen: " + file.getName());
@@ -56,9 +57,23 @@ public class DashboardController {
       throw new IOException("Image file not found!");
     }
     BufferedImage img = ImageIO.read(imgStream);
-    Imovel imovel = new Imovel(1, img, "Casa", 12.2, 4, "alugada", 10,
-            "casjdkhajkdha", 12.23, null, "SP", 123,
-            "São Paulo", "Vila Mariana", "Rua Vergueiro");
+
+    Imovel imovel = new Imovel(
+        123,
+        img,
+        "Rua das Flores",
+        123,
+        "Jardim das Rosas",
+        "Sao Paulo",
+        "SP",
+        "Casa",
+        200.0,
+        3,
+        "Disponivel",
+        2,
+        "Casa com 3 quartos e 2 banheiros",
+        null
+    );
 
     controller.addImovel(imovel);
     controller.addImovel(imovel);
@@ -94,11 +109,25 @@ public class DashboardController {
     root = fxmlLoader.load();
 
     ManutencaoSceneController controller = fxmlLoader.getController();
-    Imovel imovel = new Imovel(1, null, "Casa", 12.2, 4, "alugada", 10,
-            "casjdkhajkdha", 12.23, null, "SP", 123,
-            "São Paulo", "Vila Mariana", "Rua Vergueiro");
-    Manutencao manutencao = new Manutencao(1, "Pintura", "2021-01-01", "2021-01-02", 100.0, imovel);
-    Manutencao manutencao2 = new Manutencao(2, "Pintura", "2021-01-01", "2023-01-02", 100.0, imovel);
+    Imovel imovel = new Imovel(
+        123,
+        null,
+        "Rua das Flores",
+        123,
+        "Jardim das Rosas",
+        "Sao Paulo",
+        "SP",
+        "Casa",
+        200.0,
+        3,
+        "Disponivel",
+        2,
+        "Casa com 3 quartos e 2 banheiros",
+        null
+    );
+
+    Manutencao manutencao = new Manutencao(1, "Pintura", LocalDate.of(2021, 1, 2), LocalDate.of(2023, 1, 2), 100.0, imovel);
+    Manutencao manutencao2 = new Manutencao(2, "Pintura", LocalDate.of(2021, 1, 2), LocalDate.of(2021, 1, 4), 100.0, imovel);
 
     controller.addManutencao(manutencao);
     controller.addManutencao(manutencao2);
