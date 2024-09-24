@@ -11,8 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InquilinoDao {
+public class InquilinoDao implements GenericDao<Inquilino> {
 
+  @Override
   public boolean insert(Inquilino inquilino) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
@@ -27,33 +28,43 @@ public class InquilinoDao {
     }
   }
 
-  public boolean delete(int id) throws SQLException, IOException, ClassNotFoundException {
+  @Override
+  public boolean delete(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
-          "DELETE FROM Inquilino " +
-              "WHERE INQ_Codigo = ?");
+              "DELETE FROM Inquilino " +
+                "WHERE INQ_Codigo = ? AND INQ_Codigo IN " +
+                "(SELECT CA_CodigoInquilino FROM ContratoAluguel WHERE CA_CodigoProprietario = ?)"
+      );
       stmt.setInt(1, id);
+      stmt.setInt(2, codigoProprietario);
 
       return stmt.executeUpdate() > 0;
     }
   }
 
-  public boolean update(int id, Inquilino inquilino) throws SQLException, IOException, ClassNotFoundException {
+  @Override
+  public boolean update(int id, int codigoProprietario, Inquilino inquilino) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
-          "UPDATE Inquilino " +
-              "SET INQ_Nome = ?, INQ_CPF = ?, INQ_Telefone1 = ?, INQ_Telefone2 = ? " +
-              "WHERE INQ_Codigo = ?");
+              "UPDATE Inquilino " +
+                "SET INQ_Nome = ?, INQ_CPF = ?, INQ_Telefone1 = ?, INQ_Telefone2 = ? " +
+                "WHERE INQ_Codigo = ? AND INQ_Codigo IN " +
+                "(SELECT CA_CodigoInquilino FROM ContratoAluguel WHERE CA_CodigoProprietario = ?)"
+      );
       stmt.setString(1, inquilino.getNome());
       stmt.setString(2, inquilino.getCpf());
       stmt.setString(3, inquilino.getTelefone1());
       stmt.setString(4, inquilino.getTelefone2());
       stmt.setInt(5, id);
+      stmt.setInt(6, codigoProprietario);
 
       return stmt.executeUpdate() > 0;
     }
   }
 
+
+  @Override
   public List<Inquilino> findAll(int idProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
@@ -78,13 +89,14 @@ public class InquilinoDao {
     }
   }
 
-  public Inquilino findById(int idInquilino, int idProprietario) {
+  @Override
+  public Inquilino findById(int idInquilino, int idProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection conn = DBConnector.getConnection()) {
       PreparedStatement stmt = conn.prepareStatement(
-          "SELECT INQ.* " +
-              "FROM Inquilino INQ " +
-              "INNER JOIN ContratoAluguel ON INQ_Codigo = CA_CodigoInquilino " +
-              "WHERE INQ_Codigo = ? AND CA_CodigoProprietario = ?"
+              "SELECT INQ.* " +
+                      "FROM Inquilino INQ " +
+                      "INNER JOIN ContratoAluguel ON INQ_Codigo = CA_CodigoInquilino " +
+                      "WHERE INQ_Codigo = ? AND CA_CodigoProprietario = ?"
       );
       stmt.setInt(1, idInquilino);
       stmt.setInt(2, idProprietario);
@@ -99,9 +111,7 @@ public class InquilinoDao {
 
         return new Inquilino(INQ_Codigo, INQ_Nome, INQ_Cpf, INQ_Telefone1, INQ_Telefone2);
       }
-      return null;
-    } catch (Exception e) {
-      System.err.println(e.getMessage());
+
       return null;
     }
   }

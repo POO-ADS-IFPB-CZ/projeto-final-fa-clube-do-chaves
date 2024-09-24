@@ -14,8 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.image.BufferedImage;
 
-public class ImovelDao {
+public class ImovelDao implements GenericDao<Imovel> {
 
+  @Override
   public boolean insert(Imovel imovel) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
@@ -42,6 +43,7 @@ public class ImovelDao {
     }
   }
 
+  @Override
   public boolean delete(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
@@ -54,6 +56,7 @@ public class ImovelDao {
     }
   }
 
+  @Override
   public boolean update(int id, int codigoProprietario, Imovel imovel)
       throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
@@ -84,6 +87,7 @@ public class ImovelDao {
     }
   }
 
+  @Override
   public Imovel findById(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
@@ -128,6 +132,7 @@ public class ImovelDao {
     }
   }
 
+  @Override
   public List<Imovel> findAll(int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(

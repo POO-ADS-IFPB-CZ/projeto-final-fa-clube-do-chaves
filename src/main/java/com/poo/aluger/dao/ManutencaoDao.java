@@ -17,8 +17,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManutencaoDao {
+public class ManutencaoDao implements GenericDao<Manutencao> {
 
+  @Override
   public boolean insert(Manutencao manutencao) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
@@ -35,6 +36,7 @@ public class ManutencaoDao {
     }
   }
 
+  @Override
   public boolean delete(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
@@ -51,6 +53,7 @@ public class ManutencaoDao {
     }
   }
 
+  @Override
   public boolean update(int id, int codigoProprietario, Manutencao manutencao)
       throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
@@ -71,6 +74,7 @@ public class ManutencaoDao {
     }
   }
 
+  @Override
   public Manutencao findById(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
@@ -125,6 +129,7 @@ public class ManutencaoDao {
     }
   }
 
+  @Override
   public List<Manutencao> findAll(int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
