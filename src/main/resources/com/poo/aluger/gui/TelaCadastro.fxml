@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -22,7 +22,7 @@
                     <Insets top="20.0" />
                 </VBox.margin>
                 <children>
-                    <Label text="Crie sua contra" textFill="#272ac5">
+                    <Label alignment="CENTER" prefHeight="32.0" prefWidth="447.0" text="Crie sua conta" textFill="#272ac5">
                         <font>
                             <Font size="22.0" />
                         </font>
@@ -71,17 +71,9 @@
                     <Insets left="40.0" right="40.0" top="10.0" />
                 </VBox.margin>
             </PasswordField>
-         <AnchorPane prefHeight="87.0" prefWidth="356.0">
+         <HBox alignment="CENTER_RIGHT" spacing="15.0">
             <children>
-                    <Button id="buttonCadastrar" layoutX="18.0" layoutY="19.0" mnemonicParsing="false" onAction="#cadastrar" prefHeight="50.0" prefWidth="159.0" style="-fx-background-color: #6495ED; -fx-background-radius: 5;" text="Cadastrar" textFill="WHITE">
-                        <font>
-                            <Font size="16.0" />
-                        </font>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-                    </Button>
-               <Button id="buttonCadastrar" alignment="CENTER" layoutX="195.0" layoutY="27.0" mnemonicParsing="false" onAction="#irParaTelaLogin" prefHeight="35.0" prefWidth="147.0" style="-fx-border-color: #6495ED; -fx-border-radius: 5; -fx-background-color: transparent;" text="Login" textFill="CORNFLOWERBLUE">
+               <Button id="buttonCadastrar" alignment="CENTER" mnemonicParsing="false" onAction="#irParaTelaLogin" style="-fx-border-color: #6495ED; -fx-border-radius: 5; -fx-background-color: transparent;" text="Login" textFill="CORNFLOWERBLUE">
                   <font>
                      <Font size="16.0" />
                   </font>
@@ -89,8 +81,19 @@
                      <Cursor fx:constant="HAND" />
                   </cursor>
                </Button>
+                    <Button id="buttonCadastrar" alignment="CENTER" mnemonicParsing="false" onAction="#cadastrar" style="-fx-background-color: #6495ED; -fx-background-radius: 5;" text="Cadastrar" textFill="WHITE">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+                    </Button>
             </children>
-         </AnchorPane>
+            <VBox.margin>
+               <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+            </VBox.margin>
+         </HBox>
         </children>
         <VBox.margin>
             <Insets />
