@@ -1,0 +1,79 @@
+DROP SCHEMA public cascade;
+CREATE SCHEMA public;
+
+CREATE TABLE Proprietario(
+    P_Codigo SERIAL,
+    P_Nome VARCHAR(100) NOT NULL,
+    P_Email VARCHAR(100) NOT NULL UNIQUE,
+    P_Senha VARCHAR(100) NOT NULL,
+
+    PRIMARY KEY(P_Codigo)
+);
+
+CREATE TABLE Imovel(
+    I_Codigo SERIAL,
+    I_Foto BYTEA,
+    I_Rua VARCHAR(100) NOT NULL,
+    I_Numero INT,
+    I_Bairro VARCHAR(50) NOT NULL,
+    I_Cidade VARCHAR(100) NOT NULL,
+    I_Estado CHAR(2) NOT NULL,
+    I_Tipo VARCHAR(50) NOT NULL,
+    I_AreaTotal DOUBLE PRECISION NOT NULL,
+    I_QtdQuartos INT NOT NULL,
+    I_Status VARCHAR(25) NOT NULL DEFAULT 'Disponivel',
+    I_QtdBanheiros INT NOT NULL, 
+    I_Descricao TEXT,
+    I_CodigoProprietario INT NOT NULL,
+
+    PRIMARY KEY(I_Codigo),
+    FOREIGN KEY(I_CodigoProprietario) REFERENCES Proprietario(P_Codigo) on delete cascade
+);
+
+CREATE TABLE Inquilino(
+    INQ_Codigo SERIAL,
+    INQ_Nome VARCHAR(100) NOT NULL,
+    INQ_CPF VARCHAR(14) NOT NULL UNIQUE,
+    INQ_Telefone1 VARCHAR(20) NOT NULL,
+    INQ_Telefone2 VARCHAR(20),
+
+    PRIMARY KEY(INQ_Codigo)
+);
+
+CREATE TABLE Manutencao(
+    M_Codigo SERIAL,
+    M_Tipo VARCHAR(50) NOT NULL,
+    M_DataInicio DATE NOT NULL,
+    M_DataTermino DATE,
+    M_Custo DOUBLE PRECISION NOT NULL,
+    M_CodigoImovel INT,
+
+    FOREIGN KEY(M_CodigoImovel) REFERENCES Imovel(I_Codigo) ON DELETE SET NULL
+);
+
+CREATE TABLE ContratoAluguel(
+    CA_Codigo SERIAL,
+    CA_DataInicio DATE NOT NULL,
+    CA_DataTermino DATE,
+    CA_ValorAluguel DOUBLE PRECISION NOT NULL, 
+    CA_DiaPagamento DATE NOT NULL,
+    CA_CodigoProprietario INT NOT NULL,
+    CA_CodigoInquilino INT,
+    CA_CodigoImovel INT,
+
+    PRIMARY KEY(CA_Codigo),
+    FOREIGN KEY(CA_CodigoProprietario) REFERENCES Proprietario(P_Codigo) on delete cascade,
+    FOREIGN KEY(CA_CodigoInquilino) REFERENCES Inquilino(INQ_Codigo) on delete set null,
+    FOREIGN KEY(CA_CodigoImovel) REFERENCES Imovel(I_Codigo) on delete set null
+);
+
+CREATE TABLE Pagamento(
+    PG_Codigo SERIAL,
+    PG_Valor DOUBLE PRECISION NOT NULL,
+    PG_DataPagamento DATE NOT NULL,
+    PG_FormaPagamento VARCHAR(50) NOT NULL,
+    PG_CodigoContrato INT,
+
+    PRIMARY KEY(PG_Codigo),
+    FOREIGN KEY(PG_CodigoContrato) REFERENCES ContratoAluguel(CA_Codigo) on delete set null
+);
