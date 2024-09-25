@@ -120,8 +120,9 @@ public class ManutencaoDao implements GenericDao<Manutencao> {
         Proprietario proprietario = new Proprietario(P_Codigo, P_Nome, P_Email, P_Senha);
 
         BufferedImage foto = ImageConverter.convertBytesToImage(I_Foto);
+
         Imovel imovel = new Imovel(I_Codigo, foto, I_Rua, I_Numero, I_Bairro, I_Cidade, I_Estado,
-            I_TipoImovel, I_AreaTotal, I_QtdQuartos, I_Status, I_QtdBanheiros, I_Descricao, proprietario);
+                I_TipoImovel, I_AreaTotal, I_QtdQuartos, I_Status, I_QtdBanheiros, I_Descricao, proprietario);
 
         return new Manutencao(M_Codigo, M_Tipo, M_DataInicio, M_DataTermino, M_Custo, imovel);
       }

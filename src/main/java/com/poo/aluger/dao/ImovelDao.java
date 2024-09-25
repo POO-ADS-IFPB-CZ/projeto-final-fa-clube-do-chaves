@@ -24,7 +24,12 @@ public class ImovelDao implements GenericDao<Imovel> {
               +
               "I_Status, I_QtdBanheiros, I_Descricao, I_CodigoProprietario) " +
               "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-      byte[] foto = ImageConverter.convertBufferedImageToBytes(imovel.getFoto());
+      byte[] foto;
+      if (imovel.getFoto() == null) {
+        foto = null;
+      } else {
+        foto = ImageConverter.convertBufferedImageToBytes(imovel.getFoto());
+      }
       stmt.setBytes(1, foto);
       stmt.setString(2, imovel.getRua());
       stmt.setInt(3, imovel.getNumero());
@@ -169,7 +174,8 @@ public class ImovelDao implements GenericDao<Imovel> {
 
         Proprietario proprietario = new Proprietario(P_Codigo, P_Nome, P_Email, P_Senha);
 
-        BufferedImage foto = ImageConverter.convertBytesToImage(I_Foto);
+        BufferedImage foto = I_Foto == null ? null : ImageConverter.convertBytesToImage(I_Foto);
+
         Imovel imovel = new Imovel(I_Codigo, foto, I_Rua, I_Numero, I_Bairro, I_Cidade, I_Estado,
             I_TipoImovel, I_AreaTotal, I_QtdQuartos, I_Status, I_QtdBanheiros, I_Descricao, proprietario);
 

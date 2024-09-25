@@ -34,6 +34,10 @@ public class ImageConverter {
     return byteArrayOutputStream.toByteArray();
   }
 
+  public static BufferedImage convertImagePathToBufferedImage(String imagePath) throws IOException {
+    return ImageIO.read(new File(imagePath));
+  }
+
   public static Image getImage(BufferedImage img) {
     BufferedImage newImg = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_ARGB_PRE);
     newImg.createGraphics().drawImage(img, 0, 0, img.getWidth(), img.getHeight(), null);

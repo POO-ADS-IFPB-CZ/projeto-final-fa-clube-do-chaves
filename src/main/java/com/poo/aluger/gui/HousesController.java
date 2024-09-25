@@ -78,17 +78,22 @@ public class HousesController {
   }
 
   @FXML
-  public void hello(ActionEvent event) throws IOException {
-    System.out.println("hello");
-  }
-
-  @FXML
   public void goback(ActionEvent event) throws IOException {
     System.out.println("goback");
     Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("dashboard.fxml")));
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     Scene scene = new Scene(root);
     stage.setTitle("Dashboard");
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  @FXML
+  public void addImovel(ActionEvent event) throws IOException {
+    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("novoImovel.fxml")));
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    Scene scene = new Scene(root);
+    stage.setTitle("Adicionar Imóvel");
     stage.setScene(scene);
     stage.show();
   }

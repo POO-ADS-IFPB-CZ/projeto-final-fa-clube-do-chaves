@@ -22,7 +22,7 @@ public class ImovelController {
   }
 
   public void setImage(BufferedImage imagem) {
-    Image img = ImageConverter.getImage(imagem);
+    Image img = imagem == null ? null : ImageConverter.getImage(imagem);
     image.setImage(img);
   }
 

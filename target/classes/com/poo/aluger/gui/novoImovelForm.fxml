@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="413.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poo.aluger.gui.NovoImovelController">
+   <children>
+      <VBox layoutX="28.0" layoutY="19.0" prefHeight="231.0" prefWidth="285.0" spacing="10.0">
+         <children>
+            <Text fx:id="enderecoLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Endereço" wrappingWidth="124.14697265625">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <TextField fx:id="estadoField" promptText="Estado" />
+            <TextField fx:id="cidadeField" layoutX="20.0" layoutY="95.0" promptText="Cidade" />
+            <TextField fx:id="ruaField" layoutX="20.0" layoutY="61.0" promptText="Rua" />
+            <TextField fx:id="bairroField" layoutX="20.0" layoutY="95.0" promptText="Bairro" />
+            <TextField fx:id="numeroFieldEndereco" layoutX="20.0" layoutY="129.0" promptText="Número" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox layoutX="313.0" layoutY="19.0" prefHeight="376.0" prefWidth="376.0" spacing="10.0">
+         <children>
+            <Text fx:id="informacoesLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Informaçoes" wrappingWidth="182.14697265625">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <TextField fx:id="tipoImovelField" promptText="Tipo de imovel" />
+            <TextField fx:id="areaTotalField" layoutX="20.0" layoutY="95.0" promptText="Area total" />
+            <TextField fx:id="numeroQuartosField" layoutX="20.0" layoutY="61.0" promptText="Numero Quartos" />
+            <TextField fx:id="numeroBanheirosField" layoutX="20.0" layoutY="95.0" promptText="Numero Banheiros" />
+            <TextArea fx:id="descricaoTextArea" prefHeight="138.0" prefWidth="273.0" promptText="Descrição" />
+            <HBox spacing="10.0">
+               <children>
+                  <Button fx:id="escolherFotoButton" text="Escolher Foto" />
+                  <Label fx:id="fotoLabel" prefHeight="25.0" prefWidth="202.0" text=" Foto nao escolhida" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

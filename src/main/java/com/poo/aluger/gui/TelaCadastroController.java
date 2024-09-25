@@ -70,8 +70,6 @@ public class TelaCadastroController {
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
     Parent root = fxmlLoader.load();
 
-    DashboardController controller = fxmlLoader.getController();
-    controller.initialize();
     Stage stage = (Stage) nome.getScene().getWindow();
     Scene scene = new Scene(root);
     stage.setTitle("Dashboard");

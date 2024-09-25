@@ -30,6 +30,7 @@ public class DashboardController {
 
   public void initialize() {
     Proprietario proprietario = ProprietarioSingleton.getInstance().getProprietario();
+
     if (proprietario != null) {
       imoveisQtd.setText(String.valueOf(proprietario.getQtdImoveis()));
       inquilinosQtd.setText(String.valueOf(proprietario.getQtdInquilinos()));
@@ -127,6 +128,17 @@ public class DashboardController {
     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setTitle("Login");
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  @FXML
+  public void adicionarImovel(ActionEvent event) throws IOException {
+    fxmlLoader = new FXMLLoader(DashboardController.class.getResource("novoImovel.fxml"));
+    root = fxmlLoader.load();
+    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setTitle("Novo Imóvel");
     stage.setScene(scene);
     stage.show();
   }
