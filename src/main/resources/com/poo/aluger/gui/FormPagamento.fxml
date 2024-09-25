@@ -6,8 +6,11 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -59,21 +62,36 @@
    <bottom>
       <AnchorPane prefHeight="594.0" prefWidth="1000.0">
          <children>
-            <VBox layoutX="250.0" layoutY="106.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="500.0" spacing="15.0" style="-fx-border-color: solid black 1px;" styleClass="vbox">
+            <VBox layoutX="250.0" layoutY="106.0" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="500.0" spacing="15.0">
                <children>
-                  <Text fx:id="ContratoAluguelLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Contrato Aluguel" wrappingWidth="208.14697265625">
+                  <Text fx:id="PagamentoLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Pagamento" wrappingWidth="208.14697265625">
                      <font>
                         <Font size="26.0" />
                      </font>
                   </Text>
-                  <DatePicker promptText="Data de Início" />
-                  <DatePicker promptText="Data de Término" />
-                  <TextField fx:id="valorAluguel" layoutX="20.0" layoutY="95.0" promptText="Valor do Aluguel" />
-                  <TextField fx:id="diaPagamento" layoutX="20.0" layoutY="61.0" promptText="Dia do Pagamento" />
-                  <TextField fx:id="codInquilino" layoutX="20.0" layoutY="95.0" promptText="Código do Inquilino" />
-                  <TextField fx:id="codImovel" promptText="Código do Imóvel" />
+                  <TextField fx:id="valorPagamento" layoutX="20.0" layoutY="95.0" promptText="Valor do Pagamento" />
+                  <DatePicker fx:id="dataPagamento" promptText="Data do Pagamento" />
+                  <VBox id="formaPagamento" fx:id="formaPagamento" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                     <children>
+                        <Label text="Forma de Pagamento">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                           <children>
+                              <RadioButton mnemonicParsing="false" text="Pix">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="formaPagamentoGroup" />
+                                 </toggleGroup></RadioButton>
+                              <RadioButton mnemonicParsing="false" text="Dinheiro" toggleGroup="$formaPagamentoGroup" />
+                              <RadioButton mnemonicParsing="false" text="Transferência Bancária" toggleGroup="$formaPagamentoGroup" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <TextField fx:id="codContratoAluguel" promptText="Código do Contrato de Aluguel" />
                   <Separator opacity="0.0" orientation="VERTICAL" prefHeight="200.0" />
-                  <HBox spacing="10.0" />
                   <ButtonBar prefHeight="40.0" prefWidth="200.0">
                     <buttons>
                       <Button fx:id="OkButton" mnemonicParsing="false" text="OK" />
