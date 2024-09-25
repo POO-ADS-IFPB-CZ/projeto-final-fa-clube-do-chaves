@@ -25,10 +25,13 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button alignment="TOP_LEFT" layoutX="792.0" layoutY="15.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Conta" textFill="WHITE">
+            <Button alignment="TOP_LEFT" layoutX="792.0" layoutY="15.0" mnemonicParsing="false" onAction="#conta" style="-fx-background-color: transparent;" text="Conta" textFill="WHITE">
                <font>
                   <Font size="22.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <FontAwesomeIconView fill="#8bd0c6" glyphName="UNIVERSITY" layoutX="26.0" layoutY="44.0" size="40" text="" wrappingWidth="42.14285659790039" />
             <Text fill="WHITE" layoutX="91.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aluger">
@@ -166,7 +169,7 @@
                      <bottom>
                         <AnchorPane prefHeight="42.0" prefWidth="310.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button layoutX="236.0" layoutY="7.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="24.0" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-background-color: transparent;" textFill="WHITE" textOverrun="CLIP">
+                              <Button layoutX="236.0" layoutY="7.0" mnemonicParsing="false" onAction="#pagamentos" prefHeight="29.0" prefWidth="24.0" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-background-color: transparent;" textFill="WHITE" textOverrun="CLIP">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -231,9 +234,9 @@
                         </AnchorPane>
                      </bottom>
                   </BorderPane>
-                  <BorderPane layoutX="10.0" layoutY="151.0" prefHeight="410.0" prefWidth="336.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <BorderPane layoutX="10.0" layoutY="151.0" prefHeight="410.0" prefWidth="336.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <center>
-                        <AnchorPane prefHeight="255.0" prefWidth="336.0" style="-fx-background-color: #6c737e;" BorderPane.alignment="CENTER">
+                        <AnchorPane prefHeight="255.0" prefWidth="336.0" style="-fx-background-color: #02527a;" BorderPane.alignment="CENTER">
                            <children>
                               <FontAwesomeIconView fill="WHITE" glyphName="LINE_CHART" layoutX="32.0" layoutY="68.0" selectionEnd="0" size="60" />
                               <AnchorPane layoutX="119.0" layoutY="-1.0" prefHeight="95.0" prefWidth="150.0">
@@ -256,18 +259,10 @@
                      <bottom>
                         <AnchorPane prefHeight="42.0" prefWidth="310.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Text layoutX="21.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ver detalhes">
-                                 <font>
-                                    <Font size="19.0" />
-                                 </font>
-                              </Text>
                               <Button layoutX="228.0" layoutY="7.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="24.0" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-background-color: transparent;" textFill="WHITE" textOverrun="CLIP">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
-                                 <graphic>
-                                    <FontAwesomeIconView fill="#6c737e" glyphName="ARROW_CIRCLE_RIGHT" selectionEnd="0" selectionFill="#fec800" size="30" text="" wrappingWidth="25.71428680419922" />
-                                 </graphic>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -276,7 +271,7 @@
                         </AnchorPane>
                      </bottom>
                   </BorderPane>
-                  <BorderPane layoutX="317.0" layoutY="180.0" prefHeight="410.0" prefWidth="336.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <BorderPane layoutX="317.0" layoutY="180.0" prefHeight="410.0" prefWidth="336.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <center>
                         <AnchorPane prefHeight="255.0" prefWidth="336.0" style="-fx-background-color: #6c737e;" BorderPane.alignment="CENTER">
                            <children>

@@ -24,6 +24,7 @@ public class Imovel implements Serializable {
   public Imovel(int codigo, BufferedImage foto, String rua, int numero, String bairro, String cidade,
       String estado, String tipoImovel, double areaTotal, int qtdQuartos, String status,
       int qtdBanheiros, String descricao, Proprietario proprietario2) {
+    this.codigo = codigo;
     this.foto = foto;
     this.tipo = tipoImovel;
     this.areaTotal = areaTotal;

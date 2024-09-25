@@ -37,6 +37,10 @@ public class ContratoAluguel implements Serializable {
     this.proprietario = proprietario;
   }
 
+  public void setCodigo(int codigo) {
+    this.codigo = codigo;
+  }
+
   public int getCodigo() {
     return codigo;
   }

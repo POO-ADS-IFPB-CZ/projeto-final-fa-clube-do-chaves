@@ -60,13 +60,12 @@ public class ImovelDao {
     }
   }
 
-  public boolean delete(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
+  public boolean delete(int id) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
           "DELETE FROM Imovel " +
-              "WHERE I_Codigo = ? AND I_CodigoProprietario = ?");
+              "WHERE I_Codigo = ?");
       stmt.setInt(1, id);
-      stmt.setInt(2, codigoProprietario);
 
       return stmt.executeUpdate() > 0;
     }

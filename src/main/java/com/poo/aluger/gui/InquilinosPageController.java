@@ -24,7 +24,7 @@ public class InquilinosPageController {
   private VBox inquilinoContainer;
 
   public void addInquilino(Inquilino inquilino) throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(HousesController.class.getResource("inquilino.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(GenericController.class.getResource("inquilino.fxml"));
     Node inquilinoNode = fxmlLoader.load();
 
     InquilinoController inquilinoController = fxmlLoader.getController();

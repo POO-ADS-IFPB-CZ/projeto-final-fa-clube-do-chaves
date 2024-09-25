@@ -2,6 +2,10 @@ package com.poo.aluger.gui;
 
 import java.io.IOException;
 
+import com.poo.aluger.model.Imovel;
+import com.poo.aluger.model.Inquilino;
+import com.poo.aluger.model.Manutencao;
+import com.poo.aluger.model.Pagamento;
 import com.poo.aluger.model.Proprietario;
 import com.poo.aluger.util.Navigation;
 import com.poo.aluger.util.ProprietarioSingleton;
@@ -46,8 +50,9 @@ public class DashboardController {
     fxmlLoader = new FXMLLoader(DashboardController.class.getResource("houses.fxml"));
     root = fxmlLoader.load();
 
-    HousesController controller = fxmlLoader.getController();
-    controller.initialize();
+    GenericController controller = fxmlLoader.getController();
+    controller.initialize(Imovel.class);
+
     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setTitle("Houses");
@@ -57,11 +62,12 @@ public class DashboardController {
 
   @FXML
   public void inquilinos(ActionEvent event) throws IOException {
-    fxmlLoader = new FXMLLoader(DashboardController.class.getResource("inquilinos.fxml"));
+    fxmlLoader = new FXMLLoader(DashboardController.class.getResource("houses.fxml"));
     root = fxmlLoader.load();
 
-    InquilinosPageController controller = fxmlLoader.getController();
-    controller.initialize();
+    GenericController controller = fxmlLoader.getController();
+    controller.initialize(Inquilino.class);
+
     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setTitle("Inquilinos");
@@ -71,11 +77,11 @@ public class DashboardController {
 
   @FXML
   public void manutencoes(ActionEvent event) throws IOException {
-    fxmlLoader = new FXMLLoader(DashboardController.class.getResource("manutencaoScene.fxml"));
+    fxmlLoader = new FXMLLoader(DashboardController.class.getResource("houses.fxml"));
     root = fxmlLoader.load();
 
-    ManutencaoSceneController controller = fxmlLoader.getController();
-    controller.initialize();
+    GenericController controller = fxmlLoader.getController();
+    controller.initialize(Manutencao.class);
 
     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     scene = new Scene(root);
@@ -84,21 +90,20 @@ public class DashboardController {
     stage.show();
   }
 
-  // @FXML
-  // public void pagamentos(ActionEvent event) throws IOException {
-  // fxmlLoader = new
-  // FXMLLoader(DashboardController.class.getResource("pagamentoScene.fxml"));
-  // root = fxmlLoader.load();
-  //
-  // PagamentoSceneController controller = fxmlLoader.getController();
-  // controller.initialize();
-  //
-  // stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-  // scene = new Scene(root);
-  // stage.setTitle("Pagamentos");
-  // stage.setScene(scene);
-  // stage.show();
-  // }
+  @FXML
+  public void pagamentos(ActionEvent event) throws IOException {
+    fxmlLoader = new FXMLLoader(DashboardController.class.getResource("houses.fxml"));
+    root = fxmlLoader.load();
+
+    GenericController controller = fxmlLoader.getController();
+    controller.initialize(Pagamento.class);
+
+    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setTitle("Pagamentos");
+    stage.setScene(scene);
+    stage.show();
+  }
 
   @FXML
   public void logout(ActionEvent event) throws IOException {
@@ -156,6 +161,17 @@ public class DashboardController {
     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setTitle("Novo Inquilino");
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  @FXML
+  public void conta(ActionEvent event) throws  IOException {
+    fxmlLoader = new FXMLLoader(DashboardController.class.getResource("Conta.fxml"));
+    root = fxmlLoader.load();
+    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setTitle("Conta");
     stage.setScene(scene);
     stage.show();
   }

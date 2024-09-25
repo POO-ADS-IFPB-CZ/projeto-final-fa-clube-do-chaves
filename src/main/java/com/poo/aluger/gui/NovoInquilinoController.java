@@ -45,6 +45,7 @@ public class NovoInquilinoController {
       inquilino.setCodigo(result);
       prop.addInquilino(inquilino);
       showAlert(Alert.AlertType.INFORMATION, "Success", "Inquilino registrado com sucesso!");
+      goback();
     } catch (Exception e) {
       showAlert(Alert.AlertType.ERROR, "Error", "Ocorreu um erro ao registrar o inquilino.");
     }

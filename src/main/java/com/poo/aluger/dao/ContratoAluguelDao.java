@@ -14,51 +14,50 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContratoAluguelDao{
+public class ContratoAluguelDao {
 
   public int insert(ContratoAluguel contratoAluguel) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
-        PreparedStatement stmt = connection.prepareStatement(
-            "INSERT INTO ContratoAluguel(CA_DataInicio, CA_DataTermino, CA_ValorAluguel, CA_DiaPagamento, " +
-                "CA_CodigoProprietario, CA_CodigoInquilino, CA_CodigoImovel) " +
-                "VALUES(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-        stmt.setDate(1, java.sql.Date.valueOf(contratoAluguel.getDataInicio()));
-        stmt.setDate(2,
-            contratoAluguel.getDataTermino() != null ? java.sql.Date.valueOf(contratoAluguel.getDataTermino()) : null);
-        stmt.setDouble(3, contratoAluguel.getValorAluguel());
-        stmt.setDate(4, java.sql.Date.valueOf(contratoAluguel.getDiaPagamento()));
-        stmt.setInt(5, contratoAluguel.getProprietario().getCodigo());
-        stmt.setInt(6, contratoAluguel.getInquilino().getCodigo());
-        stmt.setInt(7, contratoAluguel.getImovel().getCodigo());
+      PreparedStatement stmt = connection.prepareStatement(
+          "INSERT INTO ContratoAluguel(CA_DataInicio, CA_DataTermino, CA_ValorAluguel, CA_DiaPagamento, " +
+              "CA_CodigoProprietario, CA_CodigoInquilino, CA_CodigoImovel) " +
+              "VALUES(?, ?, ?, ?, ?, ?, ?)",
+          Statement.RETURN_GENERATED_KEYS);
+      stmt.setDate(1, java.sql.Date.valueOf(contratoAluguel.getDataInicio()));
+      stmt.setDate(2,
+          contratoAluguel.getDataTermino() != null ? java.sql.Date.valueOf(contratoAluguel.getDataTermino()) : null);
+      stmt.setDouble(3, contratoAluguel.getValorAluguel());
+      stmt.setDate(4, java.sql.Date.valueOf(contratoAluguel.getDiaPagamento()));
+      stmt.setInt(5, contratoAluguel.getProprietario().getCodigo());
+      stmt.setInt(6, contratoAluguel.getInquilino().getCodigo());
+      stmt.setInt(7, contratoAluguel.getImovel().getCodigo());
 
-        int affectedRows = stmt.executeUpdate();
+      int affectedRows = stmt.executeUpdate();
 
-        if (affectedRows == 0) {
-            throw new SQLException("Creating contract failed, no rows affected.");
+      if (affectedRows == 0) {
+        throw new SQLException("Creating contract failed, no rows affected.");
+      }
+
+      try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+        if (generatedKeys.next()) {
+          return generatedKeys.getInt(1);
+        } else {
+          throw new SQLException("Creating contract failed, no ID obtained.");
         }
-
-        try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-            if (generatedKeys.next()) {
-                return generatedKeys.getInt(1);
-            } else {
-                throw new SQLException("Creating contract failed, no ID obtained.");
-            }
-        }
+      }
 
     } catch (Exception e) {
-        System.err.println(e.getMessage());
+      System.err.println(e.getMessage());
     }
     return -1; // return -1 or throw an exception to indicate failure
-}
+  }
 
-
-  public boolean delete(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
+  public boolean delete(int id) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
           "DELETE FROM ContratoAluguel " +
               "WHERE CA_Codigo = ? AND CA_CodigoProprietario = ?");
       stmt.setInt(1, id);
-      stmt.setInt(2, codigoProprietario);
 
       return stmt.executeUpdate() > 0;
     }
@@ -115,7 +114,7 @@ public class ContratoAluguelDao{
         // Dados do Imovel
         int I_Codigo = rs.getInt("I_Codigo");
         byte[] I_Foto = rs.getBytes("I_Foto");
-        BufferedImage image = ImageConverter.convertBytesToImage(I_Foto);
+        BufferedImage image = I_Foto == null ? null : ImageConverter.convertBytesToImage(I_Foto);
         String I_Rua = rs.getString("I_Rua");
         int I_Numero = rs.getInt("I_Numero");
         String I_Bairro = rs.getString("I_Bairro");
@@ -146,7 +145,8 @@ public class ContratoAluguelDao{
             I_AreaTotal, I_QtdQuartos, I_Status, I_QtdBanheiros, I_Descricao, proprietario);
         Inquilino inquilino = new Inquilino(INQ_Codigo, INQ_Nome, INQ_Cpf, INQ_Telefone1, INQ_Telefone2);
 
-        return new ContratoAluguel(CA_DataInicio, CA_DataTermino, CA_ValorAluguel, CA_DiaPagamento, inquilino, imovel,
+        return new ContratoAluguel(CA_Codigo, CA_DataInicio, CA_DataTermino, CA_ValorAluguel, CA_DiaPagamento,
+            inquilino, imovel,
             proprietario);
       }
       return null;
@@ -182,7 +182,8 @@ public class ContratoAluguelDao{
         // Dados do Imovel
         int I_Codigo = rs.getInt("I_Codigo");
         byte[] I_Foto = rs.getBytes("I_Foto");
-        BufferedImage image = ImageConverter.convertBytesToImage(I_Foto);
+
+        BufferedImage image = I_Foto == null ? null : ImageConverter.convertBytesToImage(I_Foto);
         String I_Rua = rs.getString("I_Rua");
         int I_Numero = rs.getInt("I_Numero");
         String I_Bairro = rs.getString("I_Bairro");
@@ -209,11 +210,14 @@ public class ContratoAluguelDao{
         String INQ_Telefone2 = rs.getString("INQ_Telefone2");
 
         Proprietario proprietario = new Proprietario(P_Codigo, P_Nome, P_Email, P_Senha);
+
         Imovel imovel = new Imovel(I_Codigo, image, I_Rua, I_Numero, I_Bairro, I_Cidade, I_Estado, I_TipoImovel,
             I_AreaTotal, I_QtdQuartos, I_Status, I_QtdBanheiros, I_Descricao, proprietario);
+
         Inquilino inquilino = new Inquilino(INQ_Codigo, INQ_Nome, INQ_Cpf, INQ_Telefone1, INQ_Telefone2);
 
-        ContratoAluguel contrato = new ContratoAluguel(CA_DataInicio, CA_DataTermino, CA_ValorAluguel, CA_DiaPagamento,
+        ContratoAluguel contrato = new ContratoAluguel(CA_Codigo, CA_DataInicio, CA_DataTermino, CA_ValorAluguel,
+            CA_DiaPagamento,
             inquilino, imovel, proprietario);
         contratos.add(contrato);
       }

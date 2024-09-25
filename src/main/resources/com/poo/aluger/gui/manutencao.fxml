@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="237.0" prefWidth="514.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poo.aluger.gui.ManutencaoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="514.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #2b2b2b;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poo.aluger.gui.ManutencaoController">
    <children>
-      <AnchorPane layoutX="170.0" layoutY="16.0" prefHeight="38.0" prefWidth="175.0">
+      <AnchorPane layoutX="17.0" layoutY="13.0" prefHeight="38.0" prefWidth="402.0">
          <children>
-            <Text layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R$: ">
+            <Text layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor:">
                <font>
                   <Font name="System Italic" size="22.0" />
                </font>
             </Text>
-            <Label fx:id="valor" layoutX="44.0" layoutY="4.0">
+            <Label fx:id="valor" layoutX="69.0" layoutY="5.0" prefHeight="29.0" prefWidth="326.0">
                <font>
                   <Font size="23.0" />
                </font>
@@ -87,5 +89,10 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Button layoutX="410.0" layoutY="224.0" mnemonicParsing="false" onAction="#delete" text="Deletar">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

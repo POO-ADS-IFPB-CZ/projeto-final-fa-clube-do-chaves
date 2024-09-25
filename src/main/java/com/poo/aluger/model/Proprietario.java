@@ -31,28 +31,11 @@ public class Proprietario implements Serializable {
   private List<Inquilino> inquilinos;
 
   public Proprietario(int codigo, String nome, String email, String senha) {
-    this.codigo = codigo;
-    this.nome = nome;
-    this.email = email;
-    this.senha = senha;
-    saldo = 0;
-    qtdContratos = 0;
-    qtdImoveis = 0;
-    qtdManutencoes = 0;
-    qtdPagamentos = 0;
-    qtdInquilinos = 0;
+    this(codigo, nome, email, senha, 0.0, 0, 0, 0, 0, 0);
   }
 
   public Proprietario(String nome, String email, String senha) {
-    this.nome = nome;
-    this.email = email;
-    this.senha = senha;
-    saldo = 0;
-    qtdContratos = 0;
-    qtdImoveis = 0;
-    qtdManutencoes = 0;
-    qtdPagamentos = 0;
-    qtdInquilinos = 0;
+    this(null, nome, email, senha, 0.0, 0, 0, 0, 0, 0);
   }
 
   public Proprietario(Integer codigo, String nome, String email, String senha, double saldo, int qtdContratos,
@@ -72,12 +55,6 @@ public class Proprietario implements Serializable {
     manutencoes = new ArrayList<>();
     pagamentos = new ArrayList<>();
     inquilinos = new ArrayList<>();
-    saldo = 0.0;
-    qtdContratos = 0;
-    qtdImoveis = 0;
-    qtdManutencoes = 0;
-    qtdPagamentos = 0;
-    qtdInquilinos = 0;
   }
 
   public Proprietario(String nome, String email, String senha, double saldo, int qtdContratos, int qtdImoveis,
@@ -185,6 +162,33 @@ public class Proprietario implements Serializable {
     return inquilinos;
   }
 
+  public void removeImovel(int id) {
+    imoveis.removeIf(i -> i.getCodigo() == id);
+    qtdImoveis--;
+  }
+
+  public void removeContrato(int id) {
+    contratos.removeIf(c -> c.getCodigo() == id);
+    qtdContratos--;
+  }
+
+  public void removeManutencao(int id) {
+    manutencoes.removeIf(m -> m.getCodigo() == id);
+    saldo += manutencoes.stream().filter(m -> m.getCodigo() == id).mapToDouble(Manutencao::getCusto).sum();
+    qtdManutencoes--;
+  }
+
+  public void removePagamento(int id) {
+    pagamentos.removeIf(p -> p.getCodigo() == id);
+    saldo -= pagamentos.stream().filter(p -> p.getCodigo() == id).mapToDouble(Pagamento::getValor).sum();
+    qtdPagamentos--;
+  }
+
+  public void removeInquilino(int id) {
+    inquilinos.removeIf(i -> i.getCodigo() == id);
+    qtdInquilinos--;
+  }
+
   public void addImovel(Imovel imovel) {
     imoveis.add(imovel);
     qtdImoveis++;
@@ -204,6 +208,7 @@ public class Proprietario implements Serializable {
   public void addPagamento(Pagamento pagamento) {
     pagamentos.add(pagamento);
     saldo += pagamento.getValor();
+    qtdPagamentos++;
   }
 
   public void addInquilino(Inquilino inquilino) {

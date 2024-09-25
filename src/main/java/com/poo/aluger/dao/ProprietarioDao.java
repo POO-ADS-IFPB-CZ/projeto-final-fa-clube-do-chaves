@@ -8,20 +8,32 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ProprietarioDao {
 
-  public boolean insert(Proprietario proprietario) throws SQLException, IOException, ClassNotFoundException {
+  public int insert(Proprietario proprietario) throws SQLException, IOException, ClassNotFoundException {
+    int generatedId = -1;
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
           "INSERT INTO Proprietario(P_Nome, P_Email, P_Senha) " +
-              "VALUES (?, ?, ?)");
+              "VALUES (?, ?, ?)",
+          Statement.RETURN_GENERATED_KEYS);
       stmt.setString(1, proprietario.getNome());
       stmt.setString(2, proprietario.getEmail());
       stmt.setString(3, proprietario.getSenha());
 
-      return stmt.executeUpdate() > 0;
+      int affectedRows = stmt.executeUpdate();
+
+      if (affectedRows > 0) {
+        try (ResultSet rs = stmt.getGeneratedKeys()) {
+          if (rs.next()) {
+            generatedId = rs.getInt(1);
+          }
+        }
+      }
     }
+    return generatedId;
   }
 
   public boolean delete(int id) throws SQLException, IOException, ClassNotFoundException {

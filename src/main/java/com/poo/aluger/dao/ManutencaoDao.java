@@ -13,18 +13,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManutencaoDao implements GenericDao<Manutencao> {
+public class ManutencaoDao {
 
-  @Override
-  public boolean insert(Manutencao manutencao) throws SQLException, IOException, ClassNotFoundException {
+  public int insert(Manutencao manutencao) throws SQLException, IOException, ClassNotFoundException {
+    int generatedId = -1;
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
           "INSERT INTO Manutencao(M_Tipo, M_DataInicio, M_DataTermino, M_Custo, M_CodigoImovel) " +
-              "VALUES(?, ?, ?, ?, ?)");
+              "VALUES(?, ?, ?, ?, ?)",
+          Statement.RETURN_GENERATED_KEYS);
 
       stmt.setString(1, manutencao.getTipo());
       stmt.setDate(2, java.sql.Date.valueOf(manutencao.getDataInicio()));
@@ -32,28 +34,30 @@ public class ManutencaoDao implements GenericDao<Manutencao> {
       stmt.setDouble(4, manutencao.getCusto());
       stmt.setInt(5, manutencao.getImovel().getCodigo());
 
-      return stmt.executeUpdate() > 0;
+      int affectedRows = stmt.executeUpdate();
+
+      if (affectedRows > 0) {
+        try (ResultSet rs = stmt.getGeneratedKeys()) {
+          if (rs.next()) {
+            generatedId = rs.getInt(1);
+          }
+        }
+      }
     }
+    return generatedId;
   }
 
-  @Override
-  public boolean delete(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
+  public boolean delete(int id) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
           "DELETE FROM Manutencao " +
-              "WHERE M_Codigo = ? AND M_CodigoImovel IN ( " +
-              "    SELECT I_Codigo " +
-              "    FROM Imovel " +
-              "    WHERE I_CodigoProprietario = ? " +
-              ")");
+              "WHERE M_Codigo = ?");
       stmt.setInt(1, id);
-      stmt.setInt(2, codigoProprietario);
 
       return stmt.executeUpdate() > 0;
     }
   }
 
-  @Override
   public boolean update(int id, int codigoProprietario, Manutencao manutencao)
       throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
@@ -74,7 +78,6 @@ public class ManutencaoDao implements GenericDao<Manutencao> {
     }
   }
 
-  @Override
   public Manutencao findById(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
@@ -122,7 +125,7 @@ public class ManutencaoDao implements GenericDao<Manutencao> {
         BufferedImage foto = ImageConverter.convertBytesToImage(I_Foto);
 
         Imovel imovel = new Imovel(I_Codigo, foto, I_Rua, I_Numero, I_Bairro, I_Cidade, I_Estado,
-                I_TipoImovel, I_AreaTotal, I_QtdQuartos, I_Status, I_QtdBanheiros, I_Descricao, proprietario);
+            I_TipoImovel, I_AreaTotal, I_QtdQuartos, I_Status, I_QtdBanheiros, I_Descricao, proprietario);
 
         return new Manutencao(M_Codigo, M_Tipo, M_DataInicio, M_DataTermino, M_Custo, imovel);
       }
@@ -130,7 +133,6 @@ public class ManutencaoDao implements GenericDao<Manutencao> {
     }
   }
 
-  @Override
   public List<Manutencao> findAll(int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
@@ -150,7 +152,7 @@ public class ManutencaoDao implements GenericDao<Manutencao> {
         int M_Codigo = rs.getInt("M_Codigo");
         String M_Tipo = rs.getString("M_Tipo");
         LocalDate M_DataInicio = rs.getDate("M_DataInicio").toLocalDate();
-        LocalDate M_DataTermino = rs.getDate("M_DataTermino") != null ? rs.getDate("M.DataTermino").toLocalDate()
+        LocalDate M_DataTermino = rs.getDate("M_DataTermino") != null ? rs.getDate("M_DataTermino").toLocalDate()
             : null;
         double M_Custo = rs.getDouble("M_Custo");
 
@@ -177,7 +179,7 @@ public class ManutencaoDao implements GenericDao<Manutencao> {
 
         Proprietario proprietario = new Proprietario(P_Codigo, P_Nome, P_Email, P_Senha);
 
-        BufferedImage foto = ImageConverter.convertBytesToImage(I_Foto);
+        BufferedImage foto = I_Foto == null ? null : ImageConverter.convertBytesToImage(I_Foto);
         Imovel imovel = new Imovel(I_Codigo, foto, I_Rua, I_Numero, I_Bairro, I_Cidade, I_Estado,
             I_TipoImovel, I_AreaTotal, I_QtdQuartos, I_Status, I_QtdBanheiros, I_Descricao, proprietario);
 

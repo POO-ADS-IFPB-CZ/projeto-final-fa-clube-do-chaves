@@ -43,16 +43,12 @@ public class PagamentoDao {
     return -1; // return -1 or throw an exception to indicate failure
   }
 
-  public boolean delete(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
+  public boolean delete(int id) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
           "DELETE FROM Pagamento " +
-              "WHERE PG_Codigo = ? AND PG_Codigo IN " +
-              "(SELECT CA_CodigoPagamento " +
-              "FROM ContratoAluguel " +
-              "WHERE CA_CodigoProprietario = ?)");
+              "WHERE PG_Codigo = ?");
       stmt.setInt(1, id);
-      stmt.setInt(2, codigoProprietario);
 
       return stmt.executeUpdate() > 0;
     }

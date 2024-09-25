@@ -46,8 +46,9 @@ public class TelaCadastroController {
         nome.setText("");
       } else {
         Proprietario proprietario = new Proprietario(nome.getText(), email.getText(), senha.getText());
+        int result = dao.insert(proprietario);
+        proprietario.setCodigo(result);
         ProprietarioSingleton.getInstance().setProprietario(proprietario);
-        dao.insert(proprietario);
         loadDashboard();
       }
     } catch (SQLException | ClassNotFoundException | IOException e) {

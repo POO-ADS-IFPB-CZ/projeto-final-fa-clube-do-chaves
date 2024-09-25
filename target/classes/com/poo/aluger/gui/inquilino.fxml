@@ -11,7 +11,6 @@
 
 <VBox prefHeight="260.0" prefWidth="330.0" spacing="20.0" style="-fx-background-color: #f5f5f5; -fx-border-color: #d3d3d3; -fx-border-radius: 10; -fx-padding: 20; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poo.aluger.gui.InquilinoController">
     
-    <!-- Título com o nome do inquilino -->
     <HBox alignment="CENTER" prefHeight="50.0" prefWidth="300.0" style="-fx-background-radius: 5;">
       <children>
            <Label fx:id="nome" graphicTextGap="0.0" text="ahndgad">
@@ -22,7 +21,6 @@
       </children>
     </HBox>
 
-    <!-- Grid para mostrar os detalhes -->
     <GridPane hgap="10" style="-fx-padding: 10;" vgap="15">
         <!-- Código -->
         <Label style="-fx-font-weight: bold;" text="Código:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -53,6 +51,6 @@
 
     <!-- Botão para editar os dados -->
     <HBox alignment="CENTER_RIGHT">
-        <Button fx:id="editButton" prefWidth="80.0" style="-fx-background-color: #2196f3; -fx-text-fill: white;" text="Editar" />
+      <Button fx:id="editButton1" layoutX="218.0" layoutY="10.0" onAction="#delete" prefWidth="80.0" text="Deletar" />
     </HBox>
 </VBox>

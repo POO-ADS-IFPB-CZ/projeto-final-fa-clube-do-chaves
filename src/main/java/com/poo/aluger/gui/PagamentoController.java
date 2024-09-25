@@ -1,90 +1,59 @@
 package com.poo.aluger.gui;
 
-import java.time.LocalDate;
-import java.util.stream.Collectors;
+import java.io.IOException;
+import java.sql.SQLException;
 
 import com.poo.aluger.dao.PagamentoDao;
-import com.poo.aluger.model.ContratoAluguel;
-import com.poo.aluger.model.Pagamento;
-import com.poo.aluger.model.Proprietario;
 import com.poo.aluger.util.Navigation;
 import com.poo.aluger.util.ProprietarioSingleton;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class PagamentoController {
 
   @FXML
-  private TextField valorPagamentoField;
+  private Label valor;
 
   @FXML
-  private DatePicker dataPagamentoPicker;
+  private Label forma;
 
   @FXML
-  private ToggleGroup formaPagamentoGroup;
+  private Label data;
 
   @FXML
-  private ComboBox<Integer> codContratoAluguelComboBox;
+  private Label codigoContrato;
 
+  @FXML
+  private Label codigo;
+
+  // Method to initialize the controller
   @FXML
   public void initialize() {
-    Proprietario proprietario = ProprietarioSingleton.getInstance().getProprietario();
+    // Initialization logic, if needed
+  }
 
-    if (proprietario != null) {
-      codContratoAluguelComboBox.setItems(FXCollections.observableArrayList(
-          proprietario.getContratos().stream().map(ContratoAluguel::getCodigo).collect(Collectors.toList())));
+  public void setPaymentDetails(String valor, String forma, String data, String codigoContrato, String codigo) {
+    this.valor.setText(valor);
+    this.forma.setText(forma);
+    this.data.setText(data);
+    this.codigoContrato.setText(codigoContrato);
+    this.codigo.setText(codigo);
+  }
+
+  @FXML
+  public void delete() throws ClassNotFoundException, SQLException, IOException {
+    int cod = Integer.parseInt(this.codigo.getText());
+    boolean result = new PagamentoDao().delete(cod);
+    if (result) {
+      showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Pagamento deletado com sucesso!");
+      ProprietarioSingleton.getInstance().getProprietario().removePagamento(cod);
+      Navigation.goToDashboard((Stage) codigo.getScene().getWindow());
     } else {
-      System.err.println("Proprietario is null");
+      showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao deletar pagamento");
     }
-  }
-
-  @FXML
-  private void registrar() {
-    try {
-      double valor = Double.parseDouble(valorPagamentoField.getText());
-      LocalDate data = dataPagamentoPicker.getValue();
-      RadioButton selectedRadioButton = (RadioButton) formaPagamentoGroup.getSelectedToggle();
-      String formaPagamento = selectedRadioButton != null ? selectedRadioButton.getText() : null;
-      Integer codContratoAluguel = codContratoAluguelComboBox.getValue();
-
-      ContratoAluguel contratoAluguel = ProprietarioSingleton.getInstance().getProprietario().getContratos().stream()
-          .filter(c -> c.getCodigo() == codContratoAluguel).findFirst().orElse(null);
-      if (codContratoAluguel == null) {
-        throw new Exception("Erro ao registrar pagamento");
-      }
-      Pagamento pagamento = new Pagamento(valor, data, formaPagamento, contratoAluguel);
-
-      int result = new PagamentoDao().insert(pagamento);
-      if (result == -1) {
-        throw new Exception("Erro ao registrar pagamento");
-      }
-
-      ProprietarioSingleton.getInstance().getProprietario().addPagamento(pagamento);
-      showAlert(Alert.AlertType.INFORMATION, "Success", "Pagamento registrado com sucesso!");
-      goback();
-    } catch (NumberFormatException e) {
-      showAlert(Alert.AlertType.ERROR, "Error", "Por favor, insira valores válidos para os campos numéricos.");
-    } catch (Exception e) {
-      showAlert(Alert.AlertType.ERROR, "Error", "Ocorreu um erro ao registrar o pagamento.");
-    }
-  }
-
-  @FXML
-  private void goback() {
-    Navigation.goToDashboard((Stage) valorPagamentoField.getScene().getWindow());
-  }
-
-  @FXML
-  private void logout() {
-    Navigation.goToDashboard((Stage) valorPagamentoField.getScene().getWindow());
   }
 
   private void showAlert(Alert.AlertType alertType, String title, String content) {

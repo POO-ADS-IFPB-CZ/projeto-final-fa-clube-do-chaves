@@ -73,12 +73,14 @@ public class NovoContratoController {
         return;
       }
 
-      ContratoAluguel contratoAluguel = new ContratoAluguel(inicio, termino, valorAluguel, pagamento, inquilino, imovel, prop);
+      ContratoAluguel contratoAluguel = new ContratoAluguel(inicio, termino, valorAluguel, pagamento, inquilino, imovel,
+          prop);
 
       int result = new ContratoAluguelDao().insert(contratoAluguel);
       if (result == -1) {
         throw new Exception("Erro ao registrar contrato de aluguel");
       }
+      contratoAluguel.setCodigo(result);
 
       prop.addContrato(contratoAluguel);
       showAlert(Alert.AlertType.INFORMATION, "Success", "Contrato de aluguel registrado com sucesso!");

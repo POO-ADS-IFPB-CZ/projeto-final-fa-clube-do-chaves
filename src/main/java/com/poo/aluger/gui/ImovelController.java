@@ -1,12 +1,18 @@
 package com.poo.aluger.gui;
 
+import java.awt.image.BufferedImage;
+
+import com.poo.aluger.dao.ImovelDao;
 import com.poo.aluger.util.ImageConverter;
+import com.poo.aluger.util.Navigation;
+import com.poo.aluger.util.ProprietarioSingleton;
+
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.awt.image.BufferedImage;
+import javafx.stage.Stage;
 
 public class ImovelController {
 
@@ -85,4 +91,30 @@ public class ImovelController {
   public void setCpf(String cpf) {
     this.cpf.setText(cpf);
   }
+
+  @FXML
+  private void delete() {
+    try {
+      int cod = Integer.parseInt(this.codigo.getText());
+      boolean result = new ImovelDao().delete(cod);
+      if (result) {
+        showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Imóvel deletado com sucesso");
+        ProprietarioSingleton.getInstance().getProprietario().removeImovel(cod);
+        Navigation.goToDashboard((Stage) image.getScene().getWindow());
+      } else {
+        showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao deletar imóvel");
+      }
+    } catch (Exception e) {
+      showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao deletar imóvel");
+    }
+  }
+
+  private void showAlert(Alert.AlertType alertType, String title, String content) {
+    Alert alert = new Alert(alertType);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(content);
+    alert.showAndWait();
+  }
+
 }
