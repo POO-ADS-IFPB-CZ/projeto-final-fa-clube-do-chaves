@@ -14,16 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.image.BufferedImage;
 
-public class ImovelDao implements GenericDao<Imovel> {
+public class ImovelDao {
 
-  @Override
-  public boolean insert(Imovel imovel) throws SQLException, IOException, ClassNotFoundException {
+  public int insert(Imovel imovel) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
           "INSERT INTO Imovel(I_Foto, I_Rua, I_Numero, I_Bairro, I_Cidade, I_Estado, I_Tipo, I_AreaTotal, I_QtdQuartos, "
               +
               "I_Status, I_QtdBanheiros, I_Descricao, I_CodigoProprietario) " +
-              "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+              "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          PreparedStatement.RETURN_GENERATED_KEYS);
       byte[] foto;
       if (imovel.getFoto() == null) {
         foto = null;
@@ -44,11 +44,22 @@ public class ImovelDao implements GenericDao<Imovel> {
       stmt.setString(12, imovel.getDescricao());
       stmt.setInt(13, imovel.getProprietario().getCodigo());
 
-      return stmt.executeUpdate() > 0;
+      int affectedRows = stmt.executeUpdate();
+
+      if (affectedRows == 0) {
+        throw new SQLException("Creating imovel failed, no rows affected.");
+      }
+
+      try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+        if (generatedKeys.next()) {
+          return generatedKeys.getInt(1);
+        } else {
+          throw new SQLException("Creating imovel failed, no ID obtained.");
+        }
+      }
     }
   }
 
-  @Override
   public boolean delete(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
@@ -61,7 +72,6 @@ public class ImovelDao implements GenericDao<Imovel> {
     }
   }
 
-  @Override
   public boolean update(int id, int codigoProprietario, Imovel imovel)
       throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
@@ -92,7 +102,6 @@ public class ImovelDao implements GenericDao<Imovel> {
     }
   }
 
-  @Override
   public Imovel findById(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
@@ -137,7 +146,6 @@ public class ImovelDao implements GenericDao<Imovel> {
     }
   }
 
-  @Override
   public List<Imovel> findAll(int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(

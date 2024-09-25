@@ -173,6 +173,14 @@ public class Imovel implements Serializable {
     this.estado = estado;
   }
 
+  public int getCodig() {
+    return codigo;
+  }
+
+  public void setCodigo(int codigo) {
+    this.codigo = codigo;
+  }
+
   @Override
   public String toString() {
     return "Imovel{" +

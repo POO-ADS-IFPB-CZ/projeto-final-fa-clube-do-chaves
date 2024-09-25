@@ -1,41 +1,52 @@
 package com.poo.aluger.dao;
 
-import com.poo.aluger.db.DBConnector;
-import com.poo.aluger.model.Inquilino;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InquilinoDao implements GenericDao<Inquilino> {
+import com.poo.aluger.db.DBConnector;
+import com.poo.aluger.model.Inquilino;
 
-  @Override
-  public boolean insert(Inquilino inquilino) throws SQLException, IOException, ClassNotFoundException {
+public class InquilinoDao {
+
+  public int insert(Inquilino inquilino) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
           "INSERT INTO Inquilino(INQ_Nome, INQ_CPF, INQ_Telefone1, INQ_Telefone2) " +
-              "VALUES(?, ?, ?, ?)");
+              "VALUES(?, ?, ?, ?)",
+          Statement.RETURN_GENERATED_KEYS);
       stmt.setString(1, inquilino.getNome());
       stmt.setString(2, inquilino.getCpf());
       stmt.setString(3, inquilino.getTelefone1());
       stmt.setString(4, inquilino.getTelefone2());
 
-      return stmt.executeUpdate() > 0;
+      int affectedRows = stmt.executeUpdate();
+
+      if (affectedRows == 0) {
+        throw new SQLException("Creating user failed, no rows affected.");
+      }
+
+      try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+        if (generatedKeys.next()) {
+          return generatedKeys.getInt(1);
+        } else {
+          throw new SQLException("Creating user failed, no ID obtained.");
+        }
+      }
     }
   }
 
-  @Override
   public boolean delete(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
-              "DELETE FROM Inquilino " +
-                "WHERE INQ_Codigo = ? AND INQ_Codigo IN " +
-                "(SELECT CA_CodigoInquilino FROM ContratoAluguel WHERE CA_CodigoProprietario = ?)"
-      );
+          "DELETE FROM Inquilino " +
+              "WHERE INQ_Codigo = ? AND INQ_Codigo IN " +
+              "(SELECT CA_CodigoInquilino FROM ContratoAluguel WHERE CA_CodigoProprietario = ?)");
       stmt.setInt(1, id);
       stmt.setInt(2, codigoProprietario);
 
@@ -43,15 +54,14 @@ public class InquilinoDao implements GenericDao<Inquilino> {
     }
   }
 
-  @Override
-  public boolean update(int id, int codigoProprietario, Inquilino inquilino) throws SQLException, IOException, ClassNotFoundException {
+  public boolean update(int id, int codigoProprietario, Inquilino inquilino)
+      throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
-              "UPDATE Inquilino " +
-                "SET INQ_Nome = ?, INQ_CPF = ?, INQ_Telefone1 = ?, INQ_Telefone2 = ? " +
-                "WHERE INQ_Codigo = ? AND INQ_Codigo IN " +
-                "(SELECT CA_CodigoInquilino FROM ContratoAluguel WHERE CA_CodigoProprietario = ?)"
-      );
+          "UPDATE Inquilino " +
+              "SET INQ_Nome = ?, INQ_CPF = ?, INQ_Telefone1 = ?, INQ_Telefone2 = ? " +
+              "WHERE INQ_Codigo = ? AND INQ_Codigo IN " +
+              "(SELECT CA_CodigoInquilino FROM ContratoAluguel WHERE CA_CodigoProprietario = ?)");
       stmt.setString(1, inquilino.getNome());
       stmt.setString(2, inquilino.getCpf());
       stmt.setString(3, inquilino.getTelefone1());
@@ -63,8 +73,6 @@ public class InquilinoDao implements GenericDao<Inquilino> {
     }
   }
 
-
-  @Override
   public List<Inquilino> findAll(int idProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
@@ -89,15 +97,14 @@ public class InquilinoDao implements GenericDao<Inquilino> {
     }
   }
 
-  @Override
-  public Inquilino findById(int idInquilino, int idProprietario) throws SQLException, IOException, ClassNotFoundException {
+  public Inquilino findById(int idInquilino, int idProprietario)
+      throws SQLException, IOException, ClassNotFoundException {
     try (Connection conn = DBConnector.getConnection()) {
       PreparedStatement stmt = conn.prepareStatement(
-              "SELECT INQ.* " +
-                      "FROM Inquilino INQ " +
-                      "INNER JOIN ContratoAluguel ON INQ_Codigo = CA_CodigoInquilino " +
-                      "WHERE INQ_Codigo = ? AND CA_CodigoProprietario = ?"
-      );
+          "SELECT INQ.* " +
+              "FROM Inquilino INQ " +
+              "INNER JOIN ContratoAluguel ON INQ_Codigo = CA_CodigoInquilino " +
+              "WHERE INQ_Codigo = ? AND CA_CodigoProprietario = ?");
       stmt.setInt(1, idInquilino);
       stmt.setInt(2, idProprietario);
       ResultSet rs = stmt.executeQuery();

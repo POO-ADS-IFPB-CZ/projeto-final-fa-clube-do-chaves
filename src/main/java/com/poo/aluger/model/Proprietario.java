@@ -198,16 +198,17 @@ public class Proprietario implements Serializable {
   public void addManutencao(Manutencao manutencao) {
     manutencoes.add(manutencao);
     qtdManutencoes++;
+    saldo -= manutencao.getCusto();
   }
 
   public void addPagamento(Pagamento pagamento) {
     pagamentos.add(pagamento);
-
+    saldo += pagamento.getValor();
   }
 
   public void addInquilino(Inquilino inquilino) {
     inquilinos.add(inquilino);
-    qtdPagamentos++;
+    qtdInquilinos++;
   }
 
   public void loadInfo() throws ClassNotFoundException, SQLException, IOException {

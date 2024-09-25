@@ -14,28 +14,44 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContratoAluguelDao implements GenericDao<ContratoAluguel> {
+public class ContratoAluguelDao{
 
-  public boolean insert(ContratoAluguel contratoAluguel) throws SQLException, IOException, ClassNotFoundException {
+  public int insert(ContratoAluguel contratoAluguel) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
-      PreparedStatement stmt = connection.prepareStatement(
-          "INSERT INTO ContratoAluguel(CA_DataInicio, CA_DataTermino, CA_ValorAluguel, CA_DiaPagamento, " +
-              "CA_CodigoProprietario, CA_CodigoInquilino, CA_CodigoImovel) " +
-              "VALUES(?, ?, ?, ?, ?, ?, ?)");
-      stmt.setDate(1, java.sql.Date.valueOf(contratoAluguel.getDataInicio()));
-      stmt.setDate(2,
-          contratoAluguel.getDataTermino() != null ? java.sql.Date.valueOf(contratoAluguel.getDataTermino()) : null);
-      stmt.setDouble(3, contratoAluguel.getValorAluguel());
-      stmt.setDate(4, java.sql.Date.valueOf(contratoAluguel.getDiaPagamento()));
-      stmt.setInt(5, contratoAluguel.getProprietario().getCodigo());
-      stmt.setInt(6, contratoAluguel.getInquilino().getCodigo());
-      stmt.setInt(7, contratoAluguel.getImovel().getCodigo());
+        PreparedStatement stmt = connection.prepareStatement(
+            "INSERT INTO ContratoAluguel(CA_DataInicio, CA_DataTermino, CA_ValorAluguel, CA_DiaPagamento, " +
+                "CA_CodigoProprietario, CA_CodigoInquilino, CA_CodigoImovel) " +
+                "VALUES(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+        stmt.setDate(1, java.sql.Date.valueOf(contratoAluguel.getDataInicio()));
+        stmt.setDate(2,
+            contratoAluguel.getDataTermino() != null ? java.sql.Date.valueOf(contratoAluguel.getDataTermino()) : null);
+        stmt.setDouble(3, contratoAluguel.getValorAluguel());
+        stmt.setDate(4, java.sql.Date.valueOf(contratoAluguel.getDiaPagamento()));
+        stmt.setInt(5, contratoAluguel.getProprietario().getCodigo());
+        stmt.setInt(6, contratoAluguel.getInquilino().getCodigo());
+        stmt.setInt(7, contratoAluguel.getImovel().getCodigo());
 
-      return stmt.executeUpdate() > 0;
+        int affectedRows = stmt.executeUpdate();
+
+        if (affectedRows == 0) {
+            throw new SQLException("Creating contract failed, no rows affected.");
+        }
+
+        try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                return generatedKeys.getInt(1);
+            } else {
+                throw new SQLException("Creating contract failed, no ID obtained.");
+            }
+        }
+
+    } catch (Exception e) {
+        System.err.println(e.getMessage());
     }
-  }
+    return -1; // return -1 or throw an exception to indicate failure
+}
 
-  @Override
+
   public boolean delete(int id, int codigoProprietario) throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
       PreparedStatement stmt = connection.prepareStatement(
@@ -48,7 +64,6 @@ public class ContratoAluguelDao implements GenericDao<ContratoAluguel> {
     }
   }
 
-  @Override
   public boolean update(int id, int codigoProprietario, ContratoAluguel contratoAluguel)
       throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
@@ -71,7 +86,6 @@ public class ContratoAluguelDao implements GenericDao<ContratoAluguel> {
     }
   }
 
-  @Override
   public ContratoAluguel findById(int id, int codigoProprietario)
       throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {
@@ -139,7 +153,6 @@ public class ContratoAluguelDao implements GenericDao<ContratoAluguel> {
     }
   }
 
-  @Override
   public List<ContratoAluguel> findAll(int codigoProprietario)
       throws SQLException, IOException, ClassNotFoundException {
     try (Connection connection = DBConnector.getConnection()) {

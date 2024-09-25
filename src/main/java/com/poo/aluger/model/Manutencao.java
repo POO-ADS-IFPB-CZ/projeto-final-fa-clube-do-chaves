@@ -6,11 +6,11 @@ import java.util.Objects;
 
 public class Manutencao implements Serializable {
     private int codigo;
-    private  String tipo;
+    private String tipo;
     private LocalDate dataInicio;
     private LocalDate dataTermino;
     private double custo;
-    private  Imovel imovel;
+    private Imovel imovel;
 
     public Manutencao(int codigo, String tipo, LocalDate dataInicio, LocalDate dataTermino,
                       double custo, Imovel imovel) {
