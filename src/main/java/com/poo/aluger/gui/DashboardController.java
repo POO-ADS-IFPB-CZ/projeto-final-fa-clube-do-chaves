@@ -2,6 +2,7 @@ package com.poo.aluger.gui;
 
 import java.io.IOException;
 
+import com.poo.aluger.model.ContratoAluguel;
 import com.poo.aluger.model.Imovel;
 import com.poo.aluger.model.Inquilino;
 import com.poo.aluger.model.Manutencao;
@@ -104,6 +105,21 @@ public class DashboardController {
     stage.setScene(scene);
     stage.show();
   }
+
+  @FXML
+  public void contratos(ActionEvent event) throws IOException {
+    fxmlLoader = new FXMLLoader(DashboardController.class.getResource("houses.fxml"));
+    root = fxmlLoader.load();
+
+    GenericController controller = fxmlLoader.getController();
+    controller.initialize(ContratoAluguel.class);
+
+    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setTitle("Pagamentos");
+    stage.setScene(scene);
+    stage.show();
+  }   
 
   @FXML
   public void logout(ActionEvent event) throws IOException {

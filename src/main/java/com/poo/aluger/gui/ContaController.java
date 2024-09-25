@@ -46,7 +46,7 @@ public class ContaController {
     Proprietario pr = ProprietarioSingleton.getInstance().getProprietario();
     nome.setText(pr.getNome());
     email.setText(pr.getEmail());
-    senhaTextField.setText(pr.getSenha());
+    senhaTextField.setText("");
   }
 
   // @FXML

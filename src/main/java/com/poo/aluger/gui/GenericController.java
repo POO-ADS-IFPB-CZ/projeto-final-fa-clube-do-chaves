@@ -82,6 +82,7 @@ public class GenericController {
     imovelController.setQuantidadeQuartos(String.valueOf(imovel.getQuantidadeQuartos()));
     imovelController.setQuantidadeBanheiros(String.valueOf(imovel.getQuantidadeBanheiros()));
     imovelController.setStatus(imovel.getStatus());
+    imovelController.setDescricao(imovel.getDescricao());
     generiContainer.getChildren().add(imovelNode);
   }
 
@@ -143,7 +144,7 @@ public class GenericController {
     contratoAluguelController.setValorAluguel(contratoAluguel.getValorAluguel() + "");
     contratoAluguelController.setDiaPagamento(contratoAluguel.getDiaPagamento());
     contratoAluguelController.setInquilino(contratoAluguel.getInquilino().getCodigo() + "");
-    contratoAluguelController.setImovel(contratoAluguel.getImovel().getCodig() + "+");
+    contratoAluguelController.setImovel(contratoAluguel.getImovel().getCodig() + "");
     contratoAluguelController.setProprietario(contratoAluguel.getProprietario().getCodigo() + "");
 
     generiContainer.getChildren().add(contratoAluguelNode);

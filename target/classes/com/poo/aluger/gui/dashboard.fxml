@@ -236,17 +236,17 @@
                   </BorderPane>
                   <BorderPane layoutX="10.0" layoutY="151.0" prefHeight="410.0" prefWidth="336.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <center>
-                        <AnchorPane prefHeight="255.0" prefWidth="336.0" style="-fx-background-color: #02527a;" BorderPane.alignment="CENTER">
+                        <AnchorPane prefHeight="94.0" prefWidth="296.0" style="-fx-background-color: #02527a;" BorderPane.alignment="CENTER">
                            <children>
                               <FontAwesomeIconView fill="WHITE" glyphName="LINE_CHART" layoutX="32.0" layoutY="68.0" selectionEnd="0" size="60" />
                               <AnchorPane layoutX="119.0" layoutY="-1.0" prefHeight="95.0" prefWidth="150.0">
                                  <children>
-                                    <Text fx:id="saldoVal" fill="WHITE" layoutX="48.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <Text fx:id="saldoVal" fill="WHITE" layoutX="32.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0">
                                        <font>
                                           <Font size="30.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="WHITE" layoutX="46.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saldo">
+                                    <Text fill="WHITE" layoutX="61.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saldo">
                                        <font>
                                           <Font size="21.0" />
                                        </font>
@@ -301,7 +301,7 @@
                                     <Font size="19.0" />
                                  </font>
                               </Text>
-                              <Button layoutX="228.0" layoutY="7.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="24.0" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-background-color: transparent;" textFill="WHITE" textOverrun="CLIP">
+                              <Button layoutX="228.0" layoutY="7.0" mnemonicParsing="false" onAction="#contratos" prefHeight="29.0" prefWidth="24.0" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-background-color: transparent;" textFill="WHITE" textOverrun="CLIP">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -320,12 +320,12 @@
             </GridPane>
             <AnchorPane layoutX="23.0" layoutY="4.0" prefHeight="25.0" prefWidth="920.0">
                <children>
-                  <Text layoutX="8.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome," wrappingWidth="127.52734375">
+                  <Text layoutX="37.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bem vindo, " wrappingWidth="194.52734375">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Text>
-                  <Text fx:id="nomeProp" layoutX="143.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="777.52734375">
+                  <Text fx:id="nomeProp" layoutX="198.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="777.52734375">
                      <font>
                         <Font size="25.0" />
                      </font>

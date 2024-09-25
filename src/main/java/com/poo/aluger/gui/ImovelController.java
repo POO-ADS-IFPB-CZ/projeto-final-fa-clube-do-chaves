@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ImovelController {
@@ -22,6 +23,9 @@ public class ImovelController {
 
   @FXML
   private ImageView image;
+
+  @FXML
+  private Text descricao;
 
   public void setTipo(String tipo) {
     this.tipo.setText(tipo);
@@ -90,6 +94,10 @@ public class ImovelController {
 
   public void setCpf(String cpf) {
     this.cpf.setText(cpf);
+  }
+
+  public void setDescricao(String descricao) {
+    this.descricao.setText(descricao);
   }
 
   @FXML
